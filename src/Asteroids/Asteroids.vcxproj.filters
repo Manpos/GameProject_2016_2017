@@ -1,0 +1,33 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Project ToolsVersion="4.0" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
+  <ItemGroup>
+    <ClCompile Include="main.cc" />
+  </ItemGroup>
+  <ItemGroup>
+    <Filter Include="Model">
+      <UniqueIdentifier>{737c9a3a-7162-4fba-b3b8-7b94eef59922}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Controller">
+      <UniqueIdentifier>{8372f8ea-8c81-49ec-894b-7fc190d68d61}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="View">
+      <UniqueIdentifier>{56826427-daf0-4698-9407-ff278cb19450}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Save&amp;ConfigFiles">
+      <UniqueIdentifier>{523bb4e2-9e6b-4bf5-8215-d2c8600dbb14}</UniqueIdentifier>
+    </Filter>
+  </ItemGroup>
+  <ItemGroup>
+    <Xml Include="difCnfg.xml">
+      <Filter>Save&amp;ConfigFiles</Filter>
+    </Xml>
+  </ItemGroup>
+  <ItemGroup>
+    <ClInclude Include="SceneManager.hh">
+      <Filter>Controller</Filter>
+    </ClInclude>
+    <ClInclude Include="Renderer.hh">
+      <Filter>View</Filter>
+    </ClInclude>
+  </ItemGroup>
+</Project>
