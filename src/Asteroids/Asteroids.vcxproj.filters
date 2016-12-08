@@ -29,5 +29,14 @@
     <ClInclude Include="Renderer.hh">
       <Filter>View</Filter>
     </ClInclude>
+    <ClInclude Include="MenuScene.hh">
+      <Filter>Model</Filter>
+    </ClInclude>
+    <ClInclude Include="InputManager.hh">
+      <Filter>Controller</Filter>
+    </ClInclude>
+    <ClInclude Include="GameScene.hh">
+      <Filter>Model</Filter>
+    </ClInclude>
   </ItemGroup>
 </Project>

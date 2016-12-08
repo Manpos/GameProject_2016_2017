@@ -120,6 +120,9 @@
     <Xml Include="difCnfg.xml" />
   </ItemGroup>
   <ItemGroup>
+    <ClInclude Include="GameScene.hh" />
+    <ClInclude Include="InputManager.hh" />
+    <ClInclude Include="MenuScene.hh" />
     <ClInclude Include="Renderer.hh" />
     <ClInclude Include="SceneManager.hh" />
   </ItemGroup>
