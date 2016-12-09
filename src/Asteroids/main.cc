@@ -29,8 +29,6 @@ int main(int argc, char* args[]) {
 			SDL_FillRect(screenSurface, NULL, SDL_MapRGB(screenSurface->format, 0xFA, 0xFB, 0xFC));
 			SDL_UpdateWindowSurface(window);
 			SDL_Delay(2000);
-			SDL_FillRect(screenSurface, NULL, SDL_MapRGB(screenSurface->format, , , ));
-			SDL_Delay(2000);
 		}
 	}
 	SDL_DestroyWindow(window);
