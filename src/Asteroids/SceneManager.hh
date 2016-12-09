@@ -1,4 +1,5 @@
 #pragma once
+#include <unordered_map>
 
 enum SceneType {MENU, GAME, RANK};
 class SceneManager {
