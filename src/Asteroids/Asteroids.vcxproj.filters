@@ -2,6 +2,9 @@
 <Project ToolsVersion="4.0" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
   <ItemGroup>
     <ClCompile Include="main.cc" />
+    <ClCompile Include="GameScene.cc">
+      <Filter>Model</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <Filter Include="Model">
@@ -28,6 +31,12 @@
     </ClInclude>
     <ClInclude Include="Renderer.hh">
       <Filter>View</Filter>
+    </ClInclude>
+    <ClInclude Include="Scene.hh">
+      <Filter>Model</Filter>
+    </ClInclude>
+    <ClInclude Include="GameScene.hh">
+      <Filter>Model</Filter>
     </ClInclude>
   </ItemGroup>
 </Project>

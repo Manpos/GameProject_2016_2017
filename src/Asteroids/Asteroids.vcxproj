@@ -114,13 +114,16 @@
     </Link>
   </ItemDefinitionGroup>
   <ItemGroup>
+    <ClCompile Include="GameScene.cc" />
     <ClCompile Include="main.cc" />
   </ItemGroup>
   <ItemGroup>
     <Xml Include="difCnfg.xml" />
   </ItemGroup>
   <ItemGroup>
+    <ClInclude Include="GameScene.hh" />
     <ClInclude Include="Renderer.hh" />
+    <ClInclude Include="Scene.hh" />
     <ClInclude Include="SceneManager.hh" />
   </ItemGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />
