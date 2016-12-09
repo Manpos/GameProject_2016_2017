@@ -5,6 +5,9 @@
     <ClCompile Include="GameScene.cc">
       <Filter>Model</Filter>
     </ClCompile>
+    <ClCompile Include="MenuScene.cc">
+      <Filter>Model</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <Filter Include="Model">
@@ -43,6 +46,9 @@
     </ClInclude>
     <ClInclude Include="Scene.hh">
       <Filter>Model</Filter>
+    </ClInclude>
+    <ClInclude Include="Window.hh">
+      <Filter>View</Filter>
     </ClInclude>
   </ItemGroup>
 </Project>

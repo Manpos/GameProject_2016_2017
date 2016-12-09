@@ -116,6 +116,7 @@
   <ItemGroup>
     <ClCompile Include="GameScene.cc" />
     <ClCompile Include="main.cc" />
+    <ClCompile Include="MenuScene.cc" />
   </ItemGroup>
   <ItemGroup>
     <Xml Include="difCnfg.xml" />
@@ -127,6 +128,7 @@
     <ClInclude Include="Renderer.hh" />
     <ClInclude Include="Scene.hh" />
     <ClInclude Include="SceneManager.hh" />
+    <ClInclude Include="Window.hh" />
   </ItemGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />
   <ImportGroup Label="ExtensionTargets">
