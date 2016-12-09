@@ -1,8 +1,10 @@
 #pragma once
+#include "Scene.hh"
 
-class GameScene {
+class GameScene : public Scene {
 public:
-private:
-	
+	void OnEntry();
+	void OnExit();
+	void Update();
+	void Draw();
 };
-
