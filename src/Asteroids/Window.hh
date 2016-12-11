@@ -9,7 +9,6 @@ private:
 	SDL_Window* m_window = nullptr;
 public:
 	Window(int, int);
-	~Window() { delete[] m_window; };
 	SDL_Window* GetWindow() { return m_window; }
 };
 
