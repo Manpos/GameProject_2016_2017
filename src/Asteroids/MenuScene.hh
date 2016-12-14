@@ -20,6 +20,7 @@ private:
 
 public:
 	MenuScene() = default;
+	bool isPlaying = false;
 	void OnEntry();
 	void OnExit();
 	void Update();

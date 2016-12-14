@@ -3,6 +3,7 @@
 
 //Content of the class MenuScene.hh
 void MenuScene::OnEntry() {
+
 	//Font load
 	font = TTF_OpenFont("../../res/ariblk.ttf", 24);
 	startMs = TTF_RenderText_Solid(font, "START", textColor);
@@ -30,6 +31,7 @@ void MenuScene::Update() {
 		IM.buttonPressed && IM.resetButton) {
 		std::cout << "HOLOS" << std::endl;
 
+		isPlaying = true; //Change the condition of the main
 		//Here goes the code to show the next menu (dificulties in this case)
 
 		IM.resetButton = false;
