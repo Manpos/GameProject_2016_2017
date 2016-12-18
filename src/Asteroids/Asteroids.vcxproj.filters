@@ -8,6 +8,9 @@
     <ClCompile Include="SelectionScene.cc">
       <Filter>Model</Filter>
     </ClCompile>
+    <ClCompile Include="GameScene.cc">
+      <Filter>Model</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <Filter Include="Model">
@@ -21,6 +24,9 @@
     </Filter>
     <Filter Include="Save&amp;ConfigFiles">
       <UniqueIdentifier>{523bb4e2-9e6b-4bf5-8215-d2c8600dbb14}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Aux">
+      <UniqueIdentifier>{fac8b143-cfbe-4c86-b575-093c915ff344}</UniqueIdentifier>
     </Filter>
   </ItemGroup>
   <ItemGroup>
@@ -49,6 +55,12 @@
     </ClInclude>
     <ClInclude Include="SelectionScene.hh">
       <Filter>Model</Filter>
+    </ClInclude>
+    <ClInclude Include="GameScene.hh">
+      <Filter>Model</Filter>
+    </ClInclude>
+    <ClInclude Include="AuxLib.hh">
+      <Filter>Aux</Filter>
     </ClInclude>
   </ItemGroup>
 </Project>

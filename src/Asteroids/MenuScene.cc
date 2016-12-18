@@ -1,5 +1,6 @@
 #include <iostream>
 #include "MenuScene.hh"
+#include "SceneManager.hh"
 
 //Content of the class MenuScene.hh
 void MenuScene::OnEntry() {
@@ -31,6 +32,7 @@ void MenuScene::Update() {
 
 		isPlaying = true; //Change the condition of the main
 		//Here goes the code to show the next menu (dificulties in this case)
+		SM.curr = SELECTION;
 
 		IM.resetButton = false;
 		IM.buttonPressed = false;
@@ -39,7 +41,7 @@ void MenuScene::Update() {
 	else if (IM.ButtonPress(msgRect2)) {
 		std::cout << "ADEU" << std::endl;
 
-		IM.isRunning = false;				//This ends the main loop and ends the program
+		AUX.gameRunning = false;				//This ends the main loop and ends the program
 	}
 }
 

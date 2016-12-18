@@ -7,7 +7,6 @@
 #include <SDL_surface.h>
 
 class Scene {
-	friend class SceneManager;
 public:
 	void OnEntry();		// Called when entering a new Scene
 	void OnExit();		// Called when leaving a Scene

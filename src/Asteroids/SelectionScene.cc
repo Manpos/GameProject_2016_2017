@@ -1,6 +1,5 @@
 #include "SelectionScene.hh"
 
-
 void SelectionScene::OnEntry() {
 
 	font = TTF_OpenFont("../../res/ariblk.ttf", 21);
@@ -29,15 +28,17 @@ void SelectionScene::OnExit() {
 void SelectionScene::Update() {
 	IM.Update();
 	
+	//XML parsing
 	std::string content(buffer.str());
 	doc.parse<0>(&content[0]);
 
+	//XML Pointer values
 	root = doc.first_node();
 	mode = root->first_node("dif");
 
 	if (IM.ButtonPress(msgRect)) { 
 		
-		std::cout << mode->first_node()->value() << std::endl;
+		std::cout << mode->first_attribute()->value() << std::endl;
 		// TODO code per canviar de menu
 
 		IM.resetButton = false;

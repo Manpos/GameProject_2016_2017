@@ -2,6 +2,7 @@
 #include <queue>
 #include <SDL.h>
 #include <iostream>
+#include "AuxLib.hh"
 
 #define IM InputManager::Instance()			//Singleton defined, so we don't have to instantiate an InputManager object everytime
 
@@ -14,7 +15,8 @@ private:
 	SDL_Event event;						//SDL_Event which will get user's inputs
 	MouseCoords g_mouseCoords;
 public:
-	bool isRunning;							//Control bools
+
+	//Control bools
 	bool buttonPressed;
 	bool resetButton;
 
@@ -28,7 +30,6 @@ public:
 	}
 
 	void Start() {							//Function which initializes the bools
-		isRunning = true;
 		buttonPressed = false;
 		resetButton = false;
 
@@ -37,7 +38,7 @@ public:
 	void Update() {
 		while (SDL_PollEvent(&event)) {
 			switch (event.type) {
-			case SDL_QUIT: isRunning = false; break;	//This event happens when the cross of the window is cilcked
+			case SDL_QUIT: AUX.gameRunning = false; break;	//This event happens when the cross of the window is cilcked
 			case SDL_MOUSEBUTTONDOWN: buttonPressed = true;   std::cout << "1"; break;
 			case SDL_MOUSEBUTTONUP: resetButton = true; std::cout << "0";  break;
 			case SDL_MOUSEMOTION: g_mouseCoords.x = event.motion.x; g_mouseCoords.y = event.motion.y; break;

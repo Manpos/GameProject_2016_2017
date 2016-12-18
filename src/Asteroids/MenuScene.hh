@@ -1,6 +1,5 @@
 #pragma once
 #include "Scene.hh"
-
 //Class which Inherits from Scene.hh
 class MenuScene : public Scene {
 private:

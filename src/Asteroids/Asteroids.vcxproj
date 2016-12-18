@@ -114,6 +114,7 @@
     </Link>
   </ItemDefinitionGroup>
   <ItemGroup>
+    <ClCompile Include="GameScene.cc" />
     <ClCompile Include="SelectionScene.cc" />
     <ClCompile Include="main.cc" />
     <ClCompile Include="MenuScene.cc" />
@@ -122,6 +123,8 @@
     <Xml Include="difCnfg.xml" />
   </ItemGroup>
   <ItemGroup>
+    <ClInclude Include="AuxLib.hh" />
+    <ClInclude Include="GameScene.hh" />
     <ClInclude Include="SelectionScene.hh" />
     <ClInclude Include="InputManager.hh" />
     <ClInclude Include="MenuScene.hh" />

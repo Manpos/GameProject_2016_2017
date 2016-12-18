@@ -1,9 +1,9 @@
 #pragma once
-#include "Scene.hh"
 #include <rapidxml.hpp>
 #include <fstream>
 #include <sstream>
 #include <iostream>
+#include "Scene.hh"
 
 
 
@@ -31,6 +31,7 @@ public:
 		std::ifstream file("difCnfg.xml");
 		buffer << file.rdbuf();
 		file.close();
+
 
 	};
 };
