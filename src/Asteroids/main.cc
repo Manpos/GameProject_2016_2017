@@ -2,7 +2,7 @@
 #include <SDL_ttf.h>
 #include "Window.hh"
 #include "MenuScene.hh"
-#include "GameScene.hh"
+#include "SelectionScene.hh"
 
 int main(int, char*[]) {
 
@@ -14,22 +14,22 @@ int main(int, char*[]) {
 	RND.SetWindow(win.GetWindow());
 
 	MenuScene menu;
-	GameScene game;
+	SelectionScene selection;
 
-	game.OnEntry();
+	selection.OnEntry();
 	menu.OnEntry();
 
 	while (IM.isRunning) {
 		// If the player is in the menu (false) the program will display the menu Scene
-		if (menu.isPlaying == false) {
+		if (!menu.isPlaying) {
 			menu.Update();
 			menu.Draw();
 		}
 
 		// When the bool is true, the game Scene will be running
-		if (menu.isPlaying) {
-			game.Update();
-			game.Draw();
+		else if (menu.isPlaying) {
+			selection.Update();
+			selection.Draw();
 		}
 		
 	}

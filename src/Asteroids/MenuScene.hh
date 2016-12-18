@@ -1,10 +1,5 @@
 #pragma once
 #include "Scene.hh"
-#include <SDL.h>
-#include <SDL_ttf.h>
-#include "InputManager.hh"
-#include "Renderer.hh"
-#include <SDL_surface.h>
 
 //Class which Inherits from Scene.hh
 class MenuScene : public Scene {

@@ -26,9 +26,7 @@ void MenuScene::Update() {
 	IM.Update();							//Call to the update of the input manager
 
 	//Conditions to determinate the zone where the input of the user should make effect
-	if (IM.GetMouseCoords().x > msgRect.x && IM.GetMouseCoords().x < (msgRect.x + msgRect.w) &&
-		IM.GetMouseCoords().y > msgRect.y && IM.GetMouseCoords().y < (msgRect.y + msgRect.h) &&
-		IM.buttonPressed && IM.resetButton) {
+	if (IM.ButtonPress(msgRect)) {
 		std::cout << "HOLOS" << std::endl;
 
 		isPlaying = true; //Change the condition of the main
@@ -38,9 +36,7 @@ void MenuScene::Update() {
 		IM.buttonPressed = false;
 	}
 
-	else if (IM.GetMouseCoords().x > msgRect2.x && IM.GetMouseCoords().x < (msgRect2.x + msgRect2.w) &&
-		IM.GetMouseCoords().y > msgRect2.y && IM.GetMouseCoords().y < (msgRect2.y + msgRect2.h) &&
-		IM.buttonPressed && IM.resetButton) {
+	else if (IM.ButtonPress(msgRect2)) {
 		std::cout << "ADEU" << std::endl;
 
 		IM.isRunning = false;				//This ends the main loop and ends the program

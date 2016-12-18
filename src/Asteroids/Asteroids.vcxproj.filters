@@ -2,10 +2,10 @@
 <Project ToolsVersion="4.0" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
   <ItemGroup>
     <ClCompile Include="main.cc" />
-    <ClCompile Include="GameScene.cc">
+    <ClCompile Include="MenuScene.cc">
       <Filter>Model</Filter>
     </ClCompile>
-    <ClCompile Include="MenuScene.cc">
+    <ClCompile Include="SelectionScene.cc">
       <Filter>Model</Filter>
     </ClCompile>
   </ItemGroup>
@@ -41,14 +41,14 @@
     <ClInclude Include="InputManager.hh">
       <Filter>Controller</Filter>
     </ClInclude>
-    <ClInclude Include="GameScene.hh">
-      <Filter>Model</Filter>
-    </ClInclude>
     <ClInclude Include="Scene.hh">
       <Filter>Model</Filter>
     </ClInclude>
     <ClInclude Include="Window.hh">
       <Filter>View</Filter>
+    </ClInclude>
+    <ClInclude Include="SelectionScene.hh">
+      <Filter>Model</Filter>
     </ClInclude>
   </ItemGroup>
 </Project>

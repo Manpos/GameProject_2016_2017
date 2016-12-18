@@ -45,4 +45,13 @@ public:
 			}
 		}
 	}
+
+	bool ButtonPress(SDL_Rect rect) {
+		if (IM.GetMouseCoords().x > rect.x && IM.GetMouseCoords().x < (rect.x + rect.w) &&
+			IM.GetMouseCoords().y > rect.y && IM.GetMouseCoords().y < (rect.y + rect.h) &&
+			IM.buttonPressed && IM.resetButton) {
+			return true;
+		}
+		else return false;
+	}
 };

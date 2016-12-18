@@ -1,4 +1,10 @@
 #pragma once
+#include <SDL.h>
+#include <SDL_ttf.h>
+#include "InputManager.hh"
+#include "Renderer.hh"
+#include <iostream>
+#include <SDL_surface.h>
 
 class Scene {
 	friend class SceneManager;
