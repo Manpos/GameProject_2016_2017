@@ -55,4 +55,11 @@ public:
 		}
 		else return false;
 	}
+	void ResetButton() {
+		if (IM.buttonPressed && IM.resetButton) {
+			IM.resetButton = false;
+			IM.buttonPressed = false;
+		}
+		
+	}
 };

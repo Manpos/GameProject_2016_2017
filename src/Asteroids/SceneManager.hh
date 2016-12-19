@@ -1,8 +1,8 @@
 #pragma once
-#include <unordered_map>
 #include "MenuScene.hh"
 #include "SelectionScene.hh"
 #include "AuxLib.hh"
+#include "GameScene.hh"
 
 #define SM SceneManager::Instance()
 
@@ -10,9 +10,9 @@ enum SceneType {MENU, SELECTION, GAME, RANK};
 
 class SceneManager {
 private:
-	std::unordered_map<SceneType, Scene> scMap;
 	MenuScene menu;
 	SelectionScene selection;
+	GameScene *game;
 
 public:
 

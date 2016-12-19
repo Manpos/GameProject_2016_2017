@@ -17,8 +17,7 @@ int main(int, char*[]) {
 	SM.Start();
 
 	while (AUX.gameRunning) {
-		SM.Update();
-				
+		SM.Update();		
 	}
 	
 	TTF_Quit();

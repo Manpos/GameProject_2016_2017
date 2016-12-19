@@ -34,8 +34,7 @@ void MenuScene::Update() {
 		//Here goes the code to show the next menu (dificulties in this case)
 		SM.curr = SELECTION;
 
-		IM.resetButton = false;
-		IM.buttonPressed = false;
+
 	}
 
 	else if (IM.ButtonPress(msgRect2)) {
@@ -43,6 +42,7 @@ void MenuScene::Update() {
 
 		AUX.gameRunning = false;				//This ends the main loop and ends the program
 	}
+	IM.ResetButton();
 }
 
 void MenuScene::Draw() {

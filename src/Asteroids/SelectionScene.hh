@@ -4,7 +4,8 @@
 #include <sstream>
 #include <iostream>
 #include "Scene.hh"
-
+#include <vector>
+#include <stdlib.h>
 
 
 class SelectionScene : public Scene {
@@ -22,16 +23,23 @@ private:
 	std::stringstream buffer;
 
 public:
+	std::vector<float> gameModeArr;
+
 	SelectionScene() = default;
 	void OnEntry();
 	void OnExit();
 	void Update();
 	void Draw();
+
 	void LoadXml() {
 		std::ifstream file("difCnfg.xml");
 		buffer << file.rdbuf();
 		file.close();
-
-
 	};
+	void FromXmlToVector(rapidxml::xml_node<> *mode) {
+		while (mode != nullptr) {
+			gameModeArr.push_back(float(strtod(mode->value(), nullptr)));
+			mode = mode->next_sibling();
+		}
+	}
 };

@@ -1,4 +1,5 @@
 #include "SelectionScene.hh"
+#include "GameScene.hh"
 
 void SelectionScene::OnEntry() {
 
@@ -37,28 +38,42 @@ void SelectionScene::Update() {
 	mode = root->first_node("dif");
 
 	if (IM.ButtonPress(msgRect)) { 
-		
-		std::cout << mode->first_attribute()->value() << std::endl;
+		gameModeArr.resize(0);
+		mode = mode->first_node();
+		FromXmlToVector(mode);
+		for (auto it = gameModeArr.begin(); it != gameModeArr.end(); ++it) {
+			std::cout << *it << std::endl;
+		}
 		// TODO code per canviar de menu
+		GameScene easy(gameModeArr[0], gameModeArr[1], gameModeArr[2], gameModeArr[3]);
 
-		IM.resetButton = false;
-		IM.buttonPressed = false;
 	}
 
 	else if (IM.ButtonPress(msgRect2)) {
+		gameModeArr.resize(0);
 		std::cout << mode->next_sibling()->first_attribute()->value() << std::endl;
+		mode = mode->next_sibling()->first_node();
+		FromXmlToVector(mode);
+		for (auto it = gameModeArr.begin(); it != gameModeArr.end(); ++it) {
+			std::cout << *it << std::endl;
+		}
+		// TODO code per canviar de menu
+		GameScene medium(gameModeArr[0], gameModeArr[1], gameModeArr[2], gameModeArr[3]);
 
-		IM.resetButton = false;
-		IM.buttonPressed = false;
 	}
 
 	else if (IM.ButtonPress(msgRect3)) {
+		gameModeArr.resize(0);
 		std::cout << mode->next_sibling()->next_sibling()->first_attribute()->value() << std::endl;
-
-		IM.resetButton = false;
-		IM.buttonPressed = false;
+		mode = mode->next_sibling()->next_sibling()->first_node();
+		FromXmlToVector(mode);
+		for (auto it = gameModeArr.begin(); it != gameModeArr.end(); ++it) {
+			std::cout << *it << std::endl;
+		}
+		// TODO code per canviar de menu
+		GameScene hard(gameModeArr[0], gameModeArr[1], gameModeArr[2], gameModeArr[3]);
 	}
-
+	IM.ResetButton();
 }
 
 void SelectionScene::Draw() {
