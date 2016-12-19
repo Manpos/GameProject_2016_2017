@@ -124,7 +124,9 @@
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="AuxLib.hh" />
+    <ClInclude Include="EnemyClass.hh" />
     <ClInclude Include="GameScene.hh" />
+    <ClInclude Include="PlayerClass.hh" />
     <ClInclude Include="SelectionScene.hh" />
     <ClInclude Include="InputManager.hh" />
     <ClInclude Include="MenuScene.hh" />

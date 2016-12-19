@@ -62,5 +62,11 @@
     <ClInclude Include="AuxLib.hh">
       <Filter>Aux</Filter>
     </ClInclude>
+    <ClInclude Include="PlayerClass.hh">
+      <Filter>Model</Filter>
+    </ClInclude>
+    <ClInclude Include="EnemyClass.hh">
+      <Filter>Model</Filter>
+    </ClInclude>
   </ItemGroup>
 </Project>
