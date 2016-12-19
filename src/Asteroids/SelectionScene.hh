@@ -6,6 +6,7 @@
 #include "Scene.hh"
 #include <vector>
 #include <stdlib.h>
+#include "GameScene.hh"
 
 
 class SelectionScene : public Scene {
@@ -22,9 +23,10 @@ private:
 	rapidxml::xml_node<> *mode;
 	std::stringstream buffer;
 
+	GameScene* easy = nullptr, *medium = nullptr, *hard = nullptr;
+
 public:
 	std::vector<float> gameModeArr;
-
 	SelectionScene() = default;
 	void OnEntry();
 	void OnExit();
@@ -36,10 +38,11 @@ public:
 		buffer << file.rdbuf();
 		file.close();
 	};
-	void FromXmlToVector(rapidxml::xml_node<> *mode) {
+	void FromXmlToVector(rapidxml::xml_node<> *mode, std::vector<float> &vector) {
 		while (mode != nullptr) {
-			gameModeArr.push_back(float(strtod(mode->value(), nullptr)));
+			vector.push_back(float(strtod(mode->value(), nullptr)));
 			mode = mode->next_sibling();
 		}
 	}
+
 };

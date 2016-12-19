@@ -68,5 +68,8 @@
     <ClInclude Include="EnemyClass.hh">
       <Filter>Model</Filter>
     </ClInclude>
+    <ClInclude Include="TimeManager.hh">
+      <Filter>Controller</Filter>
+    </ClInclude>
   </ItemGroup>
 </Project>

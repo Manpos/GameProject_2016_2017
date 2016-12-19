@@ -12,10 +12,10 @@ class SceneManager {
 private:
 	MenuScene menu;
 	SelectionScene selection;
-	GameScene *game;
+
 
 public:
-
+	GameScene *game;
 	SceneType curr;
 
 	static SceneManager& Instance() {
@@ -43,7 +43,9 @@ public:
 				selection.Draw();
 				break;
 			case GAME:
-
+				game->OnEntry();
+				game->Update();
+				game->Draw();
 				break;
 			case RANK:
 
