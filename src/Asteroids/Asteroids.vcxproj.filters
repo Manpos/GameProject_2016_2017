@@ -71,5 +71,8 @@
     <ClInclude Include="TimeManager.hh">
       <Filter>Controller</Filter>
     </ClInclude>
+    <ClInclude Include="LTexture.hh">
+      <Filter>View</Filter>
+    </ClInclude>
   </ItemGroup>
 </Project>
