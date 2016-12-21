@@ -5,13 +5,16 @@
 #include "Renderer.hh"
 #include <iostream>
 
-
 class Player : public GameObject{
 private:
 	struct position {
 		float x = 400, y = 400;
 	};
+	struct velocity	{
+		float x = 0.2, y = 0.2;
+	};
 	position pos;
+	velocity vel;
 	int life;
 	position referencePoint;
 public:
@@ -21,9 +24,11 @@ public:
 		move();
 	}
 	Player() = default;
-	Player(float x, float y, int lif, float refX, float refY) {
+	Player(float x, float y, float velX, float velY, int lif, float refX, float refY) {
 		pos.x = x;
 		pos.y = y;
+		vel.x = velX;
+		vel.y = velY;
 		life = lif;
 		referencePoint.x = refX;
 		referencePoint.y = refY;
@@ -32,10 +37,10 @@ public:
 	void move() {
 		switch (IM.returnMovement())
 		{
-		case 1: pos.y -= 0.05; break;
-		case 2: pos.x -= 0.05; break;
-		case 3: pos.y += 0.05; break;
-		case 4: pos.x += 0.05; break;
+		case 1: pos.y -= vel.y; break;
+		case 2: pos.x -= vel.x; break;
+		case 3: pos.y += vel.y; break;
+		case 4: pos.x += vel.x; break;
 		}
 	};
 
