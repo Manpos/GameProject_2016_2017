@@ -17,6 +17,8 @@ private:
 	float enemInitialSpeed;
 	int level;
 
+	int i;
+
 	SDL_Rect spriteSheetTest = {50,50,50,50};
 
 	EnemySpawnPos spawn;

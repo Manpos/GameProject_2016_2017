@@ -14,7 +14,7 @@ void GameScene::OnExit() {
 
 void GameScene::Update() {
 	IM.Update();
-	/*for (int i = 0; i < EnemySpawnNumber(); ++i) {
+	/*for (i = 0; i < EnemySpawnNumber(); ++i) {
 
 	}*/
 }

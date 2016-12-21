@@ -129,6 +129,7 @@
     <ClInclude Include="GameScene.hh" />
     <ClInclude Include="LTexture.hh" />
     <ClInclude Include="PlayerClass.hh" />
+    <ClInclude Include="RotationPoints.hh" />
     <ClInclude Include="SelectionScene.hh" />
     <ClInclude Include="InputManager.hh" />
     <ClInclude Include="MenuScene.hh" />
