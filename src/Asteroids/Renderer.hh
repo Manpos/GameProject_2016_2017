@@ -1,5 +1,6 @@
 #pragma once
 #include <SDL.h>
+#include <SDL_image.h>
 
 #define RND Renderer::Instance()
 
@@ -11,6 +12,9 @@ enum RGBA {
 class Renderer {
 private:
 	SDL_Renderer *renderer = NULL;
+	struct ImgSize{
+		int w, h;
+	};
 public:
 	inline static Renderer& Instance() {
 		static Renderer a;
@@ -32,11 +36,33 @@ public:
 		return msgText;
 	}
 	void PrintText(SDL_Rect msgRect, SDL_Texture *msgText) {
-		SDL_RenderCopy(renderer, msgText, nullptr, &msgRect);
+		SDL_RenderCopyEx(renderer, msgText, nullptr, &msgRect, 0, NULL, SDL_FLIP_NONE);
 	}
+
+	void PrintText(int x, int y, SDL_Texture *text, SDL_Rect* clip) {
+		SDL_Rect renderQuad = { x, y, clip->w, clip->h };
+		SDL_RenderCopyEx(renderer, text, clip, &renderQuad, 0, NULL, SDL_FLIP_NONE);
+
+	}
+
 	void CleanRenderer() {
 		SDL_RenderPresent(renderer);
 		SDL_RenderClear(renderer);
+	}
+
+	//Loads an image and creates texture
+	SDL_Surface* LoadImage(char* path) {
+		IMG_Init(IMG_INIT_PNG);
+		SDL_Texture *tTemp;
+		SDL_Surface *tmp = IMG_Load(path);
+		IMG_Quit();
+		return tmp;
+	}
+	ImgSize getImageSize(SDL_Surface *img) {
+		ImgSize tmp;
+		tmp.w = img->w;
+		tmp.h = img->h;
+		return tmp;
 	}
 };
 

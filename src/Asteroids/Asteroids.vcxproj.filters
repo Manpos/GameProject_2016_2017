@@ -74,5 +74,8 @@
     <ClInclude Include="LTexture.hh">
       <Filter>View</Filter>
     </ClInclude>
+    <ClInclude Include="GameObject.hh">
+      <Filter>Model</Filter>
+    </ClInclude>
   </ItemGroup>
 </Project>

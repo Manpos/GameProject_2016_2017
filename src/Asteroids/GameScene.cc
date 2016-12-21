@@ -4,6 +4,7 @@ void GameScene::OnEntry() {
 	if (once == 0) {
 		std::cout << lifes << " " << initEnemies << " " << incremEnemiesNum << " " << enemInitialSpeed << std::endl;
 		once++;
+		ply.SetClipsValue();
 	}
 }
 
@@ -19,5 +20,6 @@ void GameScene::Update() {
 }
 
 void GameScene::Draw() {
+	ply.Draw();
 	RND.CleanRenderer();
 }

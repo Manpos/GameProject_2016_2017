@@ -1,5 +1,6 @@
 #pragma once
 #include <SDL.h>
+#include "GameObject.hh"
 
 
 enum EnemyType { SMALL, MEDIUM, LARGE, S_OVNI, L_OVNI };
@@ -11,7 +12,7 @@ struct velocity {
 	float x, y;
 };
 
-class Enemy {
+class Enemy : public GameObject{
 private:
 	position pos;
 	velocity vel;

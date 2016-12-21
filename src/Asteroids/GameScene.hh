@@ -3,6 +3,7 @@
 #include <vector>
 #include "EnemyClass.hh"
 #include "TimeManager.hh"
+#include "PlayerClass.hh"
 
 class GameScene : public Scene {
 
@@ -16,8 +17,11 @@ private:
 	float enemInitialSpeed;
 	int level;
 
+	SDL_Rect spriteSheetTest = {50,50,50,50};
+
 	EnemySpawnPos spawn;
-	SDL_Rect spriteClips[11];
+
+	Player ply;
 
 	int once = 0;
 

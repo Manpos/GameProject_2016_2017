@@ -125,6 +125,7 @@
   <ItemGroup>
     <ClInclude Include="AuxLib.hh" />
     <ClInclude Include="EnemyClass.hh" />
+    <ClInclude Include="GameObject.hh" />
     <ClInclude Include="GameScene.hh" />
     <ClInclude Include="LTexture.hh" />
     <ClInclude Include="PlayerClass.hh" />

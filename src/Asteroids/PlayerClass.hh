@@ -1,26 +1,30 @@
 #pragma once
 #include <SDL.h>
 #include "InputManager.hh"
-#include "Window.hh"
+#include "GameObject.hh"
+#include "Renderer.hh"
 
 
-struct position {
-	float x, y;
-};
-
-class Player {
+class Player : public GameObject{
 private:
+	struct position {
+		float x = 0, y = 0;
+	};
 	position pos;
 	int life;
-	position referncePoint;
-	SDL_Rect area;
+	position referencePoint;
 public:
+	//void Update();
+	void Draw() {
+		RND.PrintText(50,50, spriteSheetText, &spriteClips[AST_LAR_1]);
+	}
+	Player() = default;
 	Player(float x, float y, int lif, float refX, float refY) {
 		pos.x = x;
 		pos.y = y;
 		life = lif;
-		referncePoint.x = refX;
-		referncePoint.y = refY;
+		referencePoint.x = refX;
+		referencePoint.y = refY;
 	};
 
 	void move() {
