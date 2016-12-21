@@ -18,6 +18,7 @@ public:
 	//void Update();
 	void Draw() {
 		RND.PrintText(pos.x, pos.y, spriteSheetText, &spriteClips[PLAYER], rotate());
+		move();
 	}
 	Player() = default;
 	Player(float x, float y, int lif, float refX, float refY) {
@@ -29,8 +30,13 @@ public:
 	};
 
 	void move() {
-		int mX = IM.GetMouseCoords().x;
-		int mY = IM.GetMouseCoords().y;
+		switch (IM.returnMovement())
+		{
+		case 1: pos.y -= 0.05; break;
+		case 2: pos.x -= 0.05; break;
+		case 3: pos.y += 0.05; break;
+		case 4: pos.x += 0.05; break;
+		}
 	};
 
 	double rotate() {
