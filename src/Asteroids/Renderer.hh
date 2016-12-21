@@ -42,7 +42,11 @@ public:
 	void PrintText(int x, int y, SDL_Texture *text, SDL_Rect* clip) {
 		SDL_Rect renderQuad = { x, y, clip->w, clip->h };
 		SDL_RenderCopyEx(renderer, text, clip, &renderQuad, 0, NULL, SDL_FLIP_NONE);
+	}
 
+	void PrintText(int x, int y, SDL_Texture *text, SDL_Rect* clip, double angle) {
+		SDL_Rect renderQuad = { x, y, clip->w, clip->h };
+		SDL_RenderCopyEx(renderer, text, clip, &renderQuad, angle, NULL, SDL_FLIP_NONE);
 	}
 
 	void CleanRenderer() {
