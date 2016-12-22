@@ -1,24 +1,21 @@
 #include "SelectionScene.hh"
 #include "SceneManager.hh"
 
+#define EASY mode->first_node()
+#define MEDIUM mode->next_sibling()->first_node()
+#define HARD mode->next_sibling()->next_sibling()->first_node()
+
 void SelectionScene::OnEntry() {
 
-	font = TTF_OpenFont("../../res/ariblk.ttf", 21);
-	firstBoxMs = TTF_RenderText_Solid(font, "Easy", textColor);
-	secondBoxMs = TTF_RenderText_Solid(font, "Medium", textColor);
-	thirdBoxMs = TTF_RenderText_Solid(font, "Hard", textColor);
+	easyT = RND.LoadFont(path, 21, "Easy", 255, 255, 255);
+	mediumT = RND.LoadFont(path, 21, "Medium", 255, 255, 255);
+	hardT = RND.LoadFont(path, 21, "Hard", 255, 255, 255);
 
-	msgRect = { 45, 45, firstBoxMs->w, secondBoxMs->h };
-	firstBox = RND.SurfToText(firstBoxMs);
-
-	msgRect2 = { 45,85, secondBoxMs->w, secondBoxMs->h };
-	secondBox = RND.SurfToText(secondBoxMs);
-
-	msgRect3 = { 45,125, thirdBoxMs->w, thirdBoxMs->h };
-	thirdBox = RND.SurfToText(thirdBoxMs);
+	transform.position(easyT.rect, 50, 50);
+	transform.position(mediumT.rect, 50, 100);
+	transform.position(hardT.rect, 50, 150);
 
 	LoadXml();
-
 
 	IM.Start();
 }
@@ -37,43 +34,47 @@ void SelectionScene::Update() {
 	root = doc.first_node();
 	mode = root->first_node("dif");
 
-	if (IM.ButtonPress(msgRect)) { 
+	if (IM.ButtonPress(easyT.rect)) { 
 		gameModeArr.resize(0);
-		mode = mode->first_node();
+		mode = EASY;
 		FromXmlToVector(mode, gameModeArr);
 		for (auto it = gameModeArr.begin(); it != gameModeArr.end(); ++it) {
-			std::cout << *it << std::endl;
+			std::cout << *it << " ";
 		}
+		std::cout << std::endl;
+
 		// TODO code per canviar de menu
-		easy = new GameScene(gameModeArr[0], gameModeArr[1], gameModeArr[2], gameModeArr[3]);
+		easy = new GameScene(gameModeArr);
 		SM.game = easy;
 		SM.curr = GAME;
 	}
 
-	else if (IM.ButtonPress(msgRect2)) {
+	else if (IM.ButtonPress(mediumT.rect)) {
 		gameModeArr.resize(0);
-		std::cout << mode->next_sibling()->first_attribute()->value() << std::endl;
-		mode = mode->next_sibling()->first_node();
+		mode = MEDIUM;
 		FromXmlToVector(mode, gameModeArr);
 		for (auto it = gameModeArr.begin(); it != gameModeArr.end(); ++it) {
-			std::cout << *it << std::endl;
+			std::cout << *it << " ";
 		}
+		std::cout << std::endl;
+
 		// TODO code per canviar de menu
-		medium = new GameScene(gameModeArr[0], gameModeArr[1], gameModeArr[2], gameModeArr[3]);
+		medium = new GameScene(gameModeArr);
 		SM.game = medium;
 		SM.curr = GAME;
 	}
 
-	else if (IM.ButtonPress(msgRect3)) {
+	else if (IM.ButtonPress(hardT.rect)) {
 		gameModeArr.resize(0);
-		std::cout << mode->next_sibling()->next_sibling()->first_attribute()->value() << std::endl;
-		mode = mode->next_sibling()->next_sibling()->first_node();
+		mode = HARD;
 		FromXmlToVector(mode, gameModeArr);
 		for (auto it = gameModeArr.begin(); it != gameModeArr.end(); ++it) {
-			std::cout << *it << std::endl;
+			std::cout << *it << " ";
 		}
+		std::cout << std::endl;
+
 		// TODO code per canviar de menu
-		hard = new GameScene(gameModeArr[0], gameModeArr[1], gameModeArr[2], gameModeArr[3]);
+		hard = new GameScene(gameModeArr);
 		SM.game = hard;
 		SM.curr = GAME;
 	}
@@ -81,8 +82,8 @@ void SelectionScene::Update() {
 }
 
 void SelectionScene::Draw() {
-	RND.PrintText(msgRect, firstBox);
-	RND.PrintText(msgRect2, secondBox);
-	RND.PrintText(msgRect3, thirdBox);
+	RND.PrintText(easyT.rect, easyT.text);
+	RND.PrintText(mediumT.rect, mediumT.text);
+	RND.PrintText(hardT.rect, hardT.text);
 	RND.CleanRenderer();
 }

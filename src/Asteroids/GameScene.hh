@@ -4,6 +4,7 @@
 #include "EnemyClass.hh"
 #include "TimeManager.hh"
 #include "PlayerClass.hh"
+#include "GameObject.hh"
 
 class GameScene : public Scene {
 
@@ -11,13 +12,13 @@ class GameScene : public Scene {
 		float x, y;
 	};
 
+	enum{LIFE, INI_ENEMIES, INCR_ENEMIES_NUM, ENEMIES_INIT_SPD};
+
 private:
 	std::vector<Enemy> enemyVector;
-	int lifes, initEnemies, incremEnemiesNum;
-	float enemInitialSpeed;
+	std::vector<float> difMode;
 	int level;
-
-	int i;
+	int currEnemyNum;
 
 	SDL_Rect spriteSheetTest = {50,50,50,50};
 
@@ -33,13 +34,16 @@ public:
 	void Update();
 	void Draw();
 
-	GameScene(int lif, int iniEnem, int incEnem, float enemIniSpd ) 
-		: lifes(lif), initEnemies(iniEnem), incremEnemiesNum(incEnem), enemInitialSpeed(enemIniSpd){}
+	GameScene(std::vector<float> tmp) : difMode(tmp) {
+		for (auto it = difMode.begin(); it != difMode.end(); ++it) {
+			std::cout << *it << " ";
+		}
+		OnEntry();
+	}
 
 	int EnemySpawnNumber() {
 		int totalEnemies;
-		totalEnemies = initEnemies + incremEnemiesNum*level;
+		totalEnemies = difMode[INI_ENEMIES] + difMode[INCR_ENEMIES_NUM]*level;
 		return totalEnemies;
 	}
-
 };

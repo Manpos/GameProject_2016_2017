@@ -30,10 +30,15 @@ private:
 
 */
 public:
-	//void Update();
-	void Draw() {
-		RND.PrintText(pos.x, pos.y, spriteSheetText, &RND.spriteClips[PLAYER], angle_deg);
+	void OnEntry() {
+
+	}
+	void Update() {
 		move();
+	};
+
+	void Draw() {
+		RND.PrintText(pos.x, pos.y, spriteSheetText, &RND.spriteClips[PLAYER], rotate());
 	}
 	Player() = default;
 	Player(float x, float y, float velX, float velY, int lif, float refX, float refY) {
@@ -47,8 +52,9 @@ public:
 	};
 
 	void move() {
-		switch (IM.returnMovement())
-		{
+
+		//switch (IM.returnMovement())
+		//{
 		/*case FOWARD: 
 			if (vel.x <= 0.5 && vel.y <= 0.5) {
 				vel.y += sin(degreesToRadians(angle_deg)) * speed;
@@ -73,12 +79,12 @@ public:
 		std::cout << "Vel X: " << vel.x << "	Vel Y: " << vel.y << std::endl;*/
 	};
 
-	/*double rotate() {
+	double rotate() {
 	float delta_y = pos.y - IM.GetMouseCoords().y;
 	float delta_x = pos.x - IM.GetMouseCoords().x;
 	double angle_deg = -90 + ((atan2(delta_y, delta_x) * 180.0000) / 3.1416);
 	return angle_deg;
-	}*/
+	}
 
 	float degreesToRadians(double degs) {
 		return degs * 3.1416 / 180;
@@ -88,4 +94,5 @@ public:
 	void shoot() {
 		
 	}
+
 };

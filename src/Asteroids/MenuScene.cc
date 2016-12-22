@@ -1,21 +1,17 @@
 #include <iostream>
 #include "MenuScene.hh"
 #include "SceneManager.hh"
+#include "transform.hh"
 
 //Content of the class MenuScene.hh
 void MenuScene::OnEntry() {
 
-	//Font load
-	font = TTF_OpenFont("../../res/ariblk.ttf", 24);
-	startMs = TTF_RenderText_Solid(font, "START", textColor);
-	exitMs = TTF_RenderText_Solid(font, "EXIT", textColor);
+	////Font load and positioning
+	start = RND.LoadFont(path, 24, "START", 255, 255, 255);
+	transform.position(start.rect, 50, 50);
 
-	//Rectangles for Textures
-	msgRect = { 45,45, startMs->w, startMs->h };
-	start = RND.SurfToText(startMs);
-
-	msgRect2 = { 45,90, exitMs->w, exitMs->h };
-	exit = RND.SurfToText(exitMs);
+	exit = RND.LoadFont(path, 24, "EXIT", 255, 255, 255);
+	transform.position(exit.rect, 50, 100);
 
 	IM.Start();								//Call to the inicialization of the elements in InputManager::Start()
 }
@@ -27,28 +23,27 @@ void MenuScene::Update() {
 	IM.Update();							//Call to the update of the input manager
 
 	//Conditions to determinate the zone where the input of the user should make effect
-	if (IM.ButtonPress(msgRect)) {
+	if (IM.ButtonPress(start.rect)) {
 		std::cout << "HOLOS" << std::endl;
 
-		isPlaying = true; //Change the condition of the main
-		//Here goes the code to show the next menu (dificulties in this case)
+		//Change the condition of the main
 		SM.curr = SELECTION;
 
 
 	}
 
-	else if (IM.ButtonPress(msgRect2)) {
+	else if (IM.ButtonPress(exit.rect)) {
 		std::cout << "ADEU" << std::endl;
-
 		AUX.gameRunning = false;				//This ends the main loop and ends the program
 	}
+
 	IM.ResetButton();
 }
 
 void MenuScene::Draw() {
 	//The textures are drown and the Renderer is cleared
-	RND.PrintText(msgRect, start);
-	RND.PrintText(msgRect2, exit);
+	RND.PrintText(start.rect,start.text);
+	RND.PrintText(exit.rect, exit.text);
 	RND.CleanRenderer();
 
 }

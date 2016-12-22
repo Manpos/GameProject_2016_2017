@@ -1,11 +1,8 @@
 #include "GameScene.hh"
 
 void GameScene::OnEntry() {
-	if (once == 0) {
-		std::cout << lifes << " " << initEnemies << " " << incremEnemiesNum << " " << enemInitialSpeed << std::endl;
-		once++;
-		ply.SetClipsValue();
-	}
+	RND.SetClips();
+
 }
 
 void GameScene::OnExit() {
@@ -14,8 +11,9 @@ void GameScene::OnExit() {
 
 void GameScene::Update() {
 	IM.Update();
-	/*for (i = 0; i < EnemySpawnNumber(); ++i) {
+	ply.Update();
 
+	/*for (i = 0; i < EnemySpawnNumber(); ++i) {
 	}*/
 }
 

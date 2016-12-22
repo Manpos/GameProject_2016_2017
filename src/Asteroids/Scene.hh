@@ -5,6 +5,7 @@
 #include "Renderer.hh"
 #include <iostream>
 #include <SDL_surface.h>
+#include "transform.hh"
 
 class Scene {
 public:

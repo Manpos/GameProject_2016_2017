@@ -11,12 +11,8 @@
 
 class SelectionScene : public Scene {
 private:
-	SDL_Surface *firstBoxMs, *secondBoxMs, *thirdBoxMs= NULL;
-	TTF_Font *font = NULL;
-	SDL_Color textColor = { 255,255,255 };
-
-	SDL_Rect msgRect, msgRect2, msgRect3;
-	SDL_Texture *firstBox, *secondBox, *thirdBox;
+	const char *path = "../../res/ariblk.ttf";
+	RTexture easyT, mediumT, hardT;
 
 	rapidxml::xml_document <> doc;
 	rapidxml::xml_node<> *root;

@@ -137,6 +137,7 @@
     <ClInclude Include="Scene.hh" />
     <ClInclude Include="SceneManager.hh" />
     <ClInclude Include="TimeManager.hh" />
+    <ClInclude Include="transform.hh" />
     <ClInclude Include="Window.hh" />
   </ItemGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />

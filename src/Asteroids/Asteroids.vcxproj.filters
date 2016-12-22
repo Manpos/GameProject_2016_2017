@@ -80,5 +80,8 @@
     <ClInclude Include="RotationPoints.hh">
       <Filter>Aux</Filter>
     </ClInclude>
+    <ClInclude Include="transform.hh">
+      <Filter>Aux</Filter>
+    </ClInclude>
   </ItemGroup>
 </Project>

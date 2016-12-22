@@ -64,7 +64,7 @@ public:
 	}
 	
 	void Draw() {
-		RND.PrintText(pos.x, pos.y, spriteSheetText, &spriteClips[AST_MED_1], rotateEnemy());
+		RND.PrintText(pos.x, pos.y, spriteSheetText, &RND.spriteClips[AST_MED_1], rotateEnemy());
 	}
 
 	float rotateEnemy() {
