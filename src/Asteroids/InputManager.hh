@@ -6,6 +6,8 @@
 
 #define IM InputManager::Instance()			//Singleton defined, so we don't have to instantiate an InputManager object everytime
 
+enum plMovement {FOWARD, RIGHT, LEFT, BACK, STATIC};
+
 struct MouseCoords{							//Struct to save Mouse coordinates at any moment
 	Sint32 x = 0, y = 0;
 };
@@ -19,7 +21,7 @@ public:
 	//Control bools
 	bool buttonPressed;
 	bool resetButton;
-	int plMove;
+	plMovement plMove = STATIC;
 
 	inline static InputManager& Instance() { //Singleton creation
 		static InputManager a;
@@ -45,12 +47,12 @@ public:
 			case SDL_MOUSEMOTION: g_mouseCoords.x = event.motion.x; g_mouseCoords.y = event.motion.y; break;
 			case SDL_KEYDOWN: std::cout << "Has pitjat una tecla eh" << std::endl;
 				switch (event.key.keysym.sym) {
-				case SDLK_w: plMove = 1; break;
-				case SDLK_a: plMove = 2; break;
-				case SDLK_s: plMove = 3; break;
-				case SDLK_d: plMove = 4; break;
+				case SDLK_w: plMove = FOWARD; break;
+				case SDLK_a: plMove = LEFT; break;
+				case SDLK_s: plMove = BACK; break;
+				case SDLK_d: plMove = RIGHT; break;
 				} break;
-			case SDL_KEYUP: plMove = 0;  break;
+			case SDL_KEYUP: plMove = STATIC;  break;
 			}
 			}
 		}
@@ -69,7 +71,7 @@ public:
 		}
 	}
 
-	int returnMovement() {
+	plMovement returnMovement() {
 		return plMove;
 	}
 };
