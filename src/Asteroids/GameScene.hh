@@ -20,6 +20,8 @@ private:
 	int level;
 	bool isPlaying;
 
+	RTexture pauseL;
+
 	const char *path = "../../res/ariblk.ttf";
 	
 

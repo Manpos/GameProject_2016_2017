@@ -12,6 +12,7 @@ private:
 	EnemyType type = MEDIUM;
 	SDL_Rect area;
 	float rotateSpeed = 0.03, rotateBase = 0;
+	float rotValue;
 	int rotateSide;
 public:
 	Enemy() {
@@ -59,11 +60,12 @@ public:
 
 	void Update() {
 		CheckBorders(id);
+		rotValue = rotateEnemy();
 		move();
 	}
 	
 	void Draw() {
-		RND.PrintText(pos.x, pos.y, spriteSheetText, &RND.spriteClips[id], rotateEnemy());
+		RND.PrintText(pos.x, pos.y, spriteSheetText, &RND.spriteClips[id], rotValue);
 	}
 
 	float rotateEnemy() {

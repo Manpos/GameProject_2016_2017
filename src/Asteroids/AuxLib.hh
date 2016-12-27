@@ -9,6 +9,7 @@ public:
 		return aux;
 	}
 	bool gameRunning;
+	bool paused;
 
 	//Window size
 	int w, h;

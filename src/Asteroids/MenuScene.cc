@@ -7,10 +7,10 @@
 void MenuScene::OnEntry() {
 
 	////Font load and positioning
-	start = RND.LoadFont(path, 24, "START", 255, 255, 255);
+	start = RND.LPFont(path, 24, "START", 255, 255, 255);
 	transform.position(start.rect, 50, 50);
 
-	exit = RND.LoadFont(path, 24, "EXIT", 255, 255, 255);
+	exit = RND.LPFont(path, 24, "EXIT", 255, 255, 255);
 	transform.position(exit.rect, 50, 100);
 
 	IM.Start();								//Call to the inicialization of the elements in InputManager::Start()

@@ -81,6 +81,24 @@ public:
 		return tmp;
 	}
 
+	RTexture CreateSolid(Uint32 R, Uint32 G, Uint32 B, Uint32 A, SDL_Rect *rect = nullptr) {
+		SDL_Surface *surf = SDL_CreateRGBSurface(0, AUX.w, AUX.h, 32, R, G, B, A);
+		SDL_Texture *text;
+		RTexture res;
+		text = RND.SurfToText(surf);
+		if (rect == nullptr) {
+			res.rect.w = AUX.w;
+			res.rect.h = AUX.h;
+			res.rect.x = 0;
+			res.rect.y = 0;
+		}
+		else res.rect = *rect;
+
+		res.text = text;
+
+		return res;
+	}
+
 	void SetClips(){
 		spriteClips[PLAYER] = { 0, 0, 31,39 };
 		spriteClips[BULLET] = { 33, 31, 7, 8 };
@@ -101,7 +119,7 @@ public:
 		return font;
 	}
 
-	RTexture LoadFont(const char* path, int size,const char* txt, Uint8 R, Uint8 G, Uint8 B) {
+	RTexture LPFont(const char* path, int size,const char* txt, Uint8 R, Uint8 G, Uint8 B) {
 		RTexture res;
 		SDL_Color textColor = { R, G, B };
 		TTF_Font *font = nullptr;

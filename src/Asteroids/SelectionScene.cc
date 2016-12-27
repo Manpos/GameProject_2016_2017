@@ -7,9 +7,9 @@
 
 void SelectionScene::OnEntry() {
 
-	easyT = RND.LoadFont(path, 21, "Easy", 255, 255, 255);
-	mediumT = RND.LoadFont(path, 21, "Medium", 255, 255, 255);
-	hardT = RND.LoadFont(path, 21, "Hard", 255, 255, 255);
+	easyT = RND.LPFont(path, 21, "Easy", 255, 255, 255);
+	mediumT = RND.LPFont(path, 21, "Medium", 255, 255, 255);
+	hardT = RND.LPFont(path, 21, "Hard", 255, 255, 255);
 
 	transform.position(easyT.rect, 50, 50);
 	transform.position(mediumT.rect, 50, 100);

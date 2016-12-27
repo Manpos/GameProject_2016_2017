@@ -10,6 +10,7 @@ class Player : public GameObject{
 private:
 
 	int life;
+	float rotValue;
 	position referencePoint;
 
 /*
@@ -27,11 +28,12 @@ public:
 	}
 	void Update() {
 		move();
+		rotValue = rotate();
 		CheckBorders(id);
 	};
 
 	void Draw() {
-		RND.PrintText(pos.x, pos.y, spriteSheetText, &RND.spriteClips[PLAYER], rotate());
+		RND.PrintText(pos.x, pos.y, spriteSheetText, &RND.spriteClips[PLAYER], rotValue);
 	}
 	Player() {
 		pos.x = 400;

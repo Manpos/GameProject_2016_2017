@@ -47,6 +47,7 @@ public:
 			case SDL_MOUSEMOTION: g_mouseCoords.x = event.motion.x; g_mouseCoords.y = event.motion.y; break;
 			case SDL_KEYDOWN: std::cout << "Has pitjat una tecla eh" << std::endl;
 				switch (event.key.keysym.sym) {
+				case SDLK_ESCAPE: AUX.paused = !AUX.paused; break;
 				case SDLK_w: plMove = 1; break;
 				case SDLK_a: plMove = 2; break;
 				case SDLK_s: plMove = 3; break;
