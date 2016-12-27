@@ -95,13 +95,31 @@ public:
 		spriteClips[OVNI] = { 196, 69, 53, 30 };
 	}
 
-	RTexture LoadFont(const char* path, int size, char* txt, int R, int G, int B) {
+	TTF_Font *LoadFont(const char* path, int size) {
+		TTF_Font *font = nullptr;
+		font = TTF_OpenFont(path, size);
+		return font;
+	}
+
+	RTexture LoadFont(const char* path, int size,const char* txt, Uint8 R, Uint8 G, Uint8 B) {
 		RTexture res;
 		SDL_Color textColor = { R, G, B };
 		TTF_Font *font = nullptr;
 		SDL_Surface *surf = nullptr;
 		SDL_Rect rec;
 		font = TTF_OpenFont(path, size);
+		surf = TTF_RenderText_Solid(font, txt, textColor);
+		rec = { 0,0, surf->w, surf->h };
+		res.text = SurfToText(surf);
+		res.rect = rec;
+		return res;
+	}
+
+	RTexture PrintFont(TTF_Font *font, const char* txt, Uint8 R, Uint8 G, Uint8 B) {
+		RTexture res;
+		SDL_Color textColor = { R, G, B };
+		SDL_Surface *surf = nullptr;
+		SDL_Rect rec;
 		surf = TTF_RenderText_Solid(font, txt, textColor);
 		rec = { 0,0, surf->w, surf->h };
 		res.text = SurfToText(surf);

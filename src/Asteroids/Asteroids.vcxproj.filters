@@ -83,5 +83,8 @@
     <ClInclude Include="transform.hh">
       <Filter>Aux</Filter>
     </ClInclude>
+    <ClInclude Include="GameState.hh">
+      <Filter>Controller</Filter>
+    </ClInclude>
   </ItemGroup>
 </Project>

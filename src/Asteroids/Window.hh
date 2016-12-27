@@ -2,9 +2,11 @@
 #include <SDL.h>
 
 #define WIN_NAME "Test"
+
 struct WinDim {
 	int w, h;
 };
+
 class Window {
 private:
 	WinDim size;

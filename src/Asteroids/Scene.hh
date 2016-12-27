@@ -4,6 +4,7 @@
 #include "InputManager.hh"
 #include "Renderer.hh"
 #include <iostream>
+#include <string>
 #include <SDL_surface.h>
 #include "transform.hh"
 

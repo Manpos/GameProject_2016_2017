@@ -6,23 +6,21 @@
 
 enum EnemyType { SMALL, MEDIUM, LARGE, S_OVNI, L_OVNI };
 
-struct position {
-	float x = 100, y = 100;
-};
-struct velocity {
-	float x = 0.02, y = 0.01;
-};
-
 class Enemy : public GameObject{
 private:
-	position pos;
-	velocity vel;
+
 	EnemyType type = MEDIUM;
 	SDL_Rect area;
 	float rotateSpeed = 0.03, rotateBase = 0;
 	int rotateSide;
 public:
-	Enemy() = default;
+	Enemy() {
+		pos.x = 100;
+		pos.y = 100;
+		vel.x = 0.2;
+		vel.y = 0.2;
+		id = AST_MED_1;
+	} 
 	Enemy(float x, float y, EnemyType ty) {
 		pos.x = x;
 		pos.y = y;
@@ -60,11 +58,12 @@ public:
 	};
 
 	void Update() {
+		CheckBorders(id);
 		move();
 	}
 	
 	void Draw() {
-		RND.PrintText(pos.x, pos.y, spriteSheetText, &RND.spriteClips[AST_MED_1], rotateEnemy());
+		RND.PrintText(pos.x, pos.y, spriteSheetText, &RND.spriteClips[id], rotateEnemy());
 	}
 
 	float rotateEnemy() {

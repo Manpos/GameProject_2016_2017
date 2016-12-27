@@ -2,7 +2,12 @@
 
 void GameScene::OnEntry() {
 	RND.SetClips();
-
+	font = RND.LoadFont(path, 20);
+	currEnemyNum = 0;
+	isPlaying = true;
+	level = 0;
+	score = 0;
+	prevScore = -1;
 }
 
 void GameScene::OnExit() {
@@ -12,12 +17,13 @@ void GameScene::OnExit() {
 void GameScene::Update() {
 	IM.Update();
 	ply.Update();
-
-	/*for (i = 0; i < EnemySpawnNumber(); ++i) {
-	}*/
+	EnemySpawn();
+	EnemiesUpdate();
+	Score();
 }
 
 void GameScene::Draw() {
+	EnemiesDraw();
 	ply.Draw();
 	RND.CleanRenderer();
 }

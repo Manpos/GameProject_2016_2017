@@ -43,7 +43,6 @@ public:
 				selection.Draw();
 				break;
 			case GAME:
-				game->OnEntry();
 				game->Update();
 				game->Draw();
 				break;

@@ -2,22 +2,16 @@
 #include <SDL.h>
 #include "InputManager.hh"
 #include "GameObject.hh"
-#include "Renderer.hh"
 #include <iostream>
 #include <time.h>
 
 class Player : public GameObject{
+
 private:
-	struct position {
-		float x = 400, y = 400;
-	};
-	struct velocity	{
-		float x = 0.2, y = 0.2;
-	};
-	position pos;
-	velocity vel;
+
 	int life;
 	position referencePoint;
+
 /*
 	float speed = 0.03;
 	float rotateSpeed = 0.5;
@@ -33,12 +27,19 @@ public:
 	}
 	void Update() {
 		move();
+		CheckBorders(id);
 	};
 
 	void Draw() {
 		RND.PrintText(pos.x, pos.y, spriteSheetText, &RND.spriteClips[PLAYER], rotate());
 	}
-	Player() = default;
+	Player() {
+		pos.x = 400;
+		pos.y = 400;
+		vel.x = 0.2;
+		vel.y = 0.2;
+		id = PLAYER;
+	}
 	Player(float x, float y, float velX, float velY, int lif, float refX, float refY) {
 		pos.x = x;
 		pos.y = y;
