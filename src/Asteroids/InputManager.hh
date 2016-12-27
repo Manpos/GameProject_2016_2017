@@ -21,7 +21,7 @@ public:
 	//Control bools
 	bool buttonPressed;
 	bool resetButton;
-	plMovement plMove = STATIC;
+	int plMove = 0;
 
 	inline static InputManager& Instance() { //Singleton creation
 		static InputManager a;
@@ -47,12 +47,12 @@ public:
 			case SDL_MOUSEMOTION: g_mouseCoords.x = event.motion.x; g_mouseCoords.y = event.motion.y; break;
 			case SDL_KEYDOWN: std::cout << "Has pitjat una tecla eh" << std::endl;
 				switch (event.key.keysym.sym) {
-				case SDLK_w: plMove = FOWARD; break;
-				case SDLK_a: plMove = LEFT; break;
-				case SDLK_s: plMove = BACK; break;
-				case SDLK_d: plMove = RIGHT; break;
+				case SDLK_w: plMove = 1; break;
+				case SDLK_a: plMove = 2; break;
+				case SDLK_s: plMove = 3; break;
+				case SDLK_d: plMove = 4; break;
 				} break;
-			case SDL_KEYUP: plMove = STATIC;  break;
+			case SDL_KEYUP: plMove = 0;  break;
 			}
 			}
 		}
@@ -71,7 +71,7 @@ public:
 		}
 	}
 
-	plMovement returnMovement() {
+	int returnMovement() {
 		return plMove;
 	}
 };
