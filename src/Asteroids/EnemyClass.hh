@@ -18,7 +18,7 @@ public:
 	Enemy() {
 		vel.x = 0.2;
 		vel.y = 0.2;
-		id = AST_MED_1;
+		id = (SpriteID)(rand() % 8 + 2);
 	} 
 	Enemy(float x, float y, EnemyType ty) {
 		pos.x = x;
@@ -52,7 +52,6 @@ public:
 
 		pos.x = RandomPos();
 		pos.y = RandomPos();
-		std::cout << pos.x << "			" << pos.y << std::endl;
 	}
 
 
