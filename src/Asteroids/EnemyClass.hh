@@ -11,13 +11,11 @@ private:
 
 	EnemyType type = MEDIUM;
 	SDL_Rect area;
-	float rotateSpeed = 0.03, rotateBase = 0;
+	float rotateSpeed = 0.003, rotateBase = 0;
 	float rotValue;
 	int rotateSide;
 public:
 	Enemy() {
-		pos.x = 100;
-		pos.y = 100;
 		vel.x = 0.2;
 		vel.y = 0.2;
 		id = AST_MED_1;
@@ -51,12 +49,12 @@ public:
 		default:
 			break;
 		}*/
+
+		pos.x = RandomPos();
+		pos.y = RandomPos();
+		std::cout << pos.x << "			" << pos.y << std::endl;
 	}
 
-	void Move() { // Com mes petit, mes velocitat
-		pos.x += vel.x;
-		pos.y += vel.y;
-	};
 
 	void Update() {
 		CheckBorders(id);
@@ -64,6 +62,11 @@ public:
 		move();
 	}
 	
+	float RandomPos() {
+		float temp = rand() % 600;
+		return temp;
+	}
+
 	void Draw() {
 		RND.PrintText(pos.x, pos.y, spriteSheetText, &RND.spriteClips[id], rotValue);
 	}
@@ -77,8 +80,8 @@ public:
 	}
 
 	void move() {
-		pos.x += vel.x;
-		pos.y += vel.y;
+		//pos.x += vel.x;
+		//pos.y += vel.y;
 	}
 
 
