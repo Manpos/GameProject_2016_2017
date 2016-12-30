@@ -11,7 +11,9 @@ private:
 	RTexture exit;
 
 public:
-	MenuScene() = default;
+	MenuScene() {
+		OnEntry();
+	}
 	void OnEntry();
 	void OnExit();
 	void Update();

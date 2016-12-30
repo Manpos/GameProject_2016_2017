@@ -17,6 +17,7 @@ void MenuScene::OnEntry() {
 }
 
 void MenuScene::OnExit() {
+	delete this;
 }
 
 void MenuScene::Update() {
@@ -27,6 +28,7 @@ void MenuScene::Update() {
 		std::cout << "HOLOS" << std::endl;
 
 		//Change the condition of the main
+		SM.selection = new SelectionScene;
 		SM.curr = SELECTION;
 
 

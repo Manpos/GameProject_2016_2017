@@ -15,12 +15,11 @@ class GameScene : public Scene {
 	enum{LIFE, INI_ENEMIES, INCR_ENEMIES_NUM, ENEMIES_INIT_SPD};
 
 private:
-	std::vector<Enemy> enemyVector;
 	std::vector<float> difMode;
 	int level;
 	bool isPlaying;
 
-	RTexture pauseL;
+	RTexture  pauseL, exit, mainMenu, resume;
 
 	const char *path = "../../res/ariblk.ttf";
 	
@@ -91,7 +90,7 @@ public:
 			prevScore = score;
 			sc = "SCORE: " + (std::to_string(score));
 			const char* conv = sc.c_str();
-			res = RND.PrintFont(font, conv, 255, 255, 255);
+			res = RND.PrepareFont(font, conv, 255, 255, 255);
 			transform.position(res.rect, 15, 15);
 		}
 		RND.PrintText(res.rect, res.text);

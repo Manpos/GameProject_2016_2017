@@ -10,12 +10,12 @@ enum SceneType {MENU, SELECTION, GAME, RANK};
 
 class SceneManager {
 private:
-	MenuScene menu;
-	SelectionScene selection;
 
 
 public:
-	GameScene *game;
+	MenuScene *menu = nullptr;
+	SelectionScene *selection = nullptr;
+	GameScene *game = nullptr;
 	SceneType curr;
 
 	static SceneManager& Instance() {
@@ -26,8 +26,7 @@ public:
 	void Start() {
 		curr = MENU;
 		AUX.gameRunning = true;
-		selection.OnEntry();
-		menu.OnEntry();
+		menu = new MenuScene;
 	}
 
 	void Update() {
@@ -35,14 +34,22 @@ public:
 			switch (curr)
 			{
 			case MENU:
-				menu.Update();
-				menu.Draw();
+				if (game != nullptr) {
+					game->OnExit();
+					game = nullptr;
+				}
+				menu->Update();
+				menu->Draw();
 				break;
 			case SELECTION:
-				selection.Update();
-				selection.Draw();
+				menu->OnExit();
+				menu = nullptr;
+				selection->Update();
+				selection->Draw();
 				break;
 			case GAME:
+				selection->OnExit();
+				selection = nullptr;
 				game->Update();
 				game->Draw();
 				break;

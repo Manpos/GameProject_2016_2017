@@ -23,7 +23,9 @@ private:
 
 public:
 	std::vector<float> gameModeArr;
-	SelectionScene() = default;
+	SelectionScene() {
+		OnEntry();
+	}
 	void OnEntry();
 	void OnExit();
 	void Update();

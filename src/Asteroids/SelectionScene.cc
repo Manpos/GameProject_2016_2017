@@ -21,6 +21,7 @@ void SelectionScene::OnEntry() {
 }
 
 void SelectionScene::OnExit() {
+	delete this;
 }
 
 void SelectionScene::Update() {

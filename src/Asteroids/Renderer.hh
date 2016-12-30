@@ -1,6 +1,7 @@
 #pragma once
 #include <SDL.h>
 #include <SDL_image.h>
+#include <SDL_surface.h>
 #include <SDL_ttf.h>
 
 #define RND Renderer::Instance()
@@ -17,8 +18,11 @@ enum SpriteID {
 
 //Texture with Rectangle attached
 struct RTexture {
+
 	SDL_Rect rect;
 	SDL_Texture *text = nullptr;
+	 //(AUX.w / 2) - (rect.w / 2)
+
 };
 
 class Renderer {
@@ -82,10 +86,12 @@ public:
 	}
 
 	RTexture CreateSolid(Uint32 R, Uint32 G, Uint32 B, Uint32 A, SDL_Rect *rect = nullptr) {
-		SDL_Surface *surf = SDL_CreateRGBSurface(0, AUX.w, AUX.h, 32, R, G, B, A);
-		SDL_Texture *text;
+		SDL_Surface *surf = SDL_CreateRGBSurface(0, AUX.w, AUX.h, 32, 0, 0, 0, 0);
+		SDL_FillRect(surf, rect, SDL_MapRGB(surf->format, R, G, B));
 		RTexture res;
-		text = RND.SurfToText(surf);
+		res.text = RND.SurfToText(surf);
+		SDL_SetTextureBlendMode(res.text, SDL_BLENDMODE_BLEND);
+		SDL_SetTextureAlphaMod(res.text, A);
 		if (rect == nullptr) {
 			res.rect.w = AUX.w;
 			res.rect.h = AUX.h;
@@ -93,8 +99,6 @@ public:
 			res.rect.y = 0;
 		}
 		else res.rect = *rect;
-
-		res.text = text;
 
 		return res;
 	}
@@ -133,7 +137,7 @@ public:
 		return res;
 	}
 
-	RTexture PrintFont(TTF_Font *font, const char* txt, Uint8 R, Uint8 G, Uint8 B) {
+	RTexture PrepareFont(TTF_Font *font, const char* txt, Uint8 R, Uint8 G, Uint8 B) {
 		RTexture res;
 		SDL_Color textColor = { R, G, B };
 		SDL_Surface *surf = nullptr;
