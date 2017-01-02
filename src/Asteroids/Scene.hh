@@ -8,6 +8,7 @@
 #include <SDL_surface.h>
 #include "transform.hh"
 
+
 class Scene {
 public:
 	void OnEntry();		// Called when entering a new Scene

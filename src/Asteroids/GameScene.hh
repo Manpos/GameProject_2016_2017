@@ -18,6 +18,7 @@ private:
 	std::vector<float> difMode;
 	int level;
 	bool isPlaying;
+	bool end;
 
 	RTexture  pauseL, exit, mainMenu, resume;
 
@@ -27,10 +28,9 @@ private:
 	SDL_Rect spriteSheetTest = {50,50,50,50};
 
 	EnemySpawnPos spawn;
+	std::string sc;
 	Enemy* enemC;
 	Player ply;
-
-	int once = 0;
 
 public:
 	void OnEntry();
@@ -40,7 +40,7 @@ public:
 	
 	//SCORE
 	TTF_Font *font;
-	std::string sc;
+
 	RTexture res;
 	int score, prevScore;
 
@@ -50,6 +50,7 @@ public:
 		for (auto it = difMode.begin(); it != difMode.end(); ++it) {
 			std::cout << *it << " ";
 		}
+
 		OnEntry();
 	}
 

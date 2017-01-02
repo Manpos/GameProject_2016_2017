@@ -11,6 +11,9 @@
     <ClCompile Include="GameScene.cc">
       <Filter>Model</Filter>
     </ClCompile>
+    <ClCompile Include="RankScene.cc">
+      <Filter>Model</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <Filter Include="Model">
@@ -85,6 +88,9 @@
     </ClInclude>
     <ClInclude Include="GameState.hh">
       <Filter>Controller</Filter>
+    </ClInclude>
+    <ClInclude Include="RankScene.hh">
+      <Filter>Model</Filter>
     </ClInclude>
   </ItemGroup>
 </Project>

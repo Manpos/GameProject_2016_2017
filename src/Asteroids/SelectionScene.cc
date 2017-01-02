@@ -7,13 +7,14 @@
 
 void SelectionScene::OnEntry() {
 
-	easyT = RND.LPFont(path, 21, "Easy", 255, 255, 255);
-	mediumT = RND.LPFont(path, 21, "Medium", 255, 255, 255);
-	hardT = RND.LPFont(path, 21, "Hard", 255, 255, 255);
+	easyT = RND.LPFont(path, 21, "EASY", 255, 255, 255);
+	transform.position(easyT.rect, 0, -50, CENTERED);
 
-	transform.position(easyT.rect, 50, 50);
-	transform.position(mediumT.rect, 50, 100);
-	transform.position(hardT.rect, 50, 150);
+	mediumT = RND.LPFont(path, 21, "MEDIUM", 255, 255, 255);
+	transform.position(mediumT.rect, 0, 0, CENTERED);
+
+	hardT = RND.LPFont(path, 21, "HARD", 255, 255, 255);
+	transform.position(hardT.rect, 0, 50, CENTERED);
 
 	LoadXml();
 
@@ -39,14 +40,9 @@ void SelectionScene::Update() {
 		gameModeArr.resize(0);
 		mode = EASY;
 		FromXmlToVector(mode, gameModeArr);
-		for (auto it = gameModeArr.begin(); it != gameModeArr.end(); ++it) {
-			std::cout << *it << " ";
-		}
-		std::cout << std::endl;
-
-		// TODO code per canviar de menu
 		easy = new GameScene(gameModeArr);
 		SM.game = easy;
+		SM.currDif = D_EASY;
 		SM.curr = GAME;
 	}
 
@@ -54,14 +50,9 @@ void SelectionScene::Update() {
 		gameModeArr.resize(0);
 		mode = MEDIUM;
 		FromXmlToVector(mode, gameModeArr);
-		for (auto it = gameModeArr.begin(); it != gameModeArr.end(); ++it) {
-			std::cout << *it << " ";
-		}
-		std::cout << std::endl;
-
-		// TODO code per canviar de menu
 		medium = new GameScene(gameModeArr);
 		SM.game = medium;
+		SM.currDif = D_MEDIUM;
 		SM.curr = GAME;
 	}
 
@@ -69,14 +60,9 @@ void SelectionScene::Update() {
 		gameModeArr.resize(0);
 		mode = HARD;
 		FromXmlToVector(mode, gameModeArr);
-		for (auto it = gameModeArr.begin(); it != gameModeArr.end(); ++it) {
-			std::cout << *it << " ";
-		}
-		std::cout << std::endl;
-
-		// TODO code per canviar de menu
 		hard = new GameScene(gameModeArr);
 		SM.game = hard;
+		SM.currDif = D_HARD;
 		SM.curr = GAME;
 	}
 	IM.ResetButton();

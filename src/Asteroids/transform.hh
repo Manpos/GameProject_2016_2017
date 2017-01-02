@@ -4,7 +4,7 @@ struct Position{
 	float x, y;
 };
 
-enum WRPosition {DEFAULT, CENTERED, TOP, BOTTOM};
+enum WRPosition {DEFAULT, CENTERED, TOP_PADDING, BOTTOM};
 
 class Transform {
 public:
@@ -25,7 +25,8 @@ public:
 			ch->x = (AUX.w / 2) - (ch->w / 2) + x;
 			ch->y = (AUX.h / 2) - (ch->h / 2) + y;
 			break;
-		case TOP:
+		case TOP_PADDING:
+			ch->y = 20 + y;
 			break;
 		case BOTTOM:
 			break;

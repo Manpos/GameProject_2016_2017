@@ -115,6 +115,7 @@
   </ItemDefinitionGroup>
   <ItemGroup>
     <ClCompile Include="GameScene.cc" />
+    <ClCompile Include="RankScene.cc" />
     <ClCompile Include="SelectionScene.cc" />
     <ClCompile Include="main.cc" />
     <ClCompile Include="MenuScene.cc" />
@@ -130,6 +131,7 @@
     <ClInclude Include="GameState.hh" />
     <ClInclude Include="LTexture.hh" />
     <ClInclude Include="PlayerClass.hh" />
+    <ClInclude Include="RankScene.hh" />
     <ClInclude Include="RotationPoints.hh" />
     <ClInclude Include="SelectionScene.hh" />
     <ClInclude Include="InputManager.hh" />

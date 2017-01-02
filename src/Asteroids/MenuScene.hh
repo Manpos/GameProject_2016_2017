@@ -1,15 +1,15 @@
 #pragma once
 #include "Scene.hh"
+#include "RankScene.hh"
 
 //Class which Inherits from Scene.hh
 class MenuScene : public Scene {
 private:
 	//FONTS
 	const char* path = "../../res/ariblk.ttf";
-
-	RTexture start;
-	RTexture exit;
-
+	bool rankSelection;
+	RTexture start, rank, exit, easy, medium, hard;
+	
 public:
 	MenuScene() {
 		OnEntry();

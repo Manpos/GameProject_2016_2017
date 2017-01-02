@@ -5,14 +5,19 @@ void GameScene::OnEntry() {
 	RND.SetClips();
 	pauseL = RND.CreateSolid(0, 0, 0, 200);
 	font = RND.LoadFont(path, 20);
+
 	resume = RND.PrepareFont(font, "RESUME", 255, 255, 255);
 	transform.position(resume.rect, 0, -50, CENTERED);
+
 	mainMenu = RND.PrepareFont(font, "MAIN MENU", 255, 255, 255);
 	transform.position(mainMenu.rect, 0, 0, CENTERED);
+
 	exit = RND.PrepareFont(font, "EXIT", 255, 255, 255);
 	transform.position(exit.rect, 0, 50, CENTERED);
+
 	currEnemyNum = 0;
 	isPlaying = true;
+	end = false;
 	level = 0;
 	score = 0;
 	prevScore = -1;
@@ -29,18 +34,23 @@ void GameScene::Update() {
 
 	if (AUX.paused) {
 		if (IM.ButtonPress(resume.rect)) AUX.paused = false;
+		//if (IM.ButtonPress(resume.rect)) {  end = true; }
 		else if (IM.ButtonPress(mainMenu.rect)) { SM.menu = new MenuScene; SM.curr = MENU; }
 		else if (IM.ButtonPress(exit.rect)) AUX.gameRunning = false;
 	}
 
-	else
-	{
+	else {
 		ply.Update();
 		EnemySpawn();
 		EnemiesUpdate();
 	}
 
+	if (end) {
+		SM.rank = new RankScene;
+		SM.curr = RANK;
+	}
 
+	IM.ResetButton();
 }
 
 void GameScene::Draw() {

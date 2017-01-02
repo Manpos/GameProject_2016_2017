@@ -56,15 +56,18 @@ public:
 		SDL_FreeSurface(surface);
 		return msgText;
 	}
+
 	void PrintText(SDL_Rect msgRect, SDL_Texture *msgText) {
 		SDL_RenderCopyEx(renderer, msgText, nullptr, &msgRect, 0, NULL, SDL_FLIP_NONE);
 	}
 
+	//Renders a texture including clipping and rotation angle
 	void PrintText(int x, int y, SDL_Texture *text, SDL_Rect* clip, double angle = 0) {
 		SDL_Rect renderQuad = { x, y, clip->w, clip->h };
 		SDL_RenderCopyEx(renderer, text, clip, &renderQuad, angle, NULL, SDL_FLIP_NONE);
 	}
 
+	//Functions to clean the renderer
 	void CleanRenderer() {
 		SDL_RenderPresent(renderer);
 		SDL_RenderClear(renderer);
@@ -78,13 +81,14 @@ public:
 		return tmp;
 	}
 
+	//Returns the size of an Image if it's a SDL_Surface
 	ImgSize getImageSize(SDL_Surface *img) {
 		ImgSize tmp;
 		tmp.w = img->w;
 		tmp.h = img->h;
 		return tmp;
 	}
-
+	//Returns a RTxture with a solid color depending on the RGBA values introduced
 	RTexture CreateSolid(Uint32 R, Uint32 G, Uint32 B, Uint32 A, SDL_Rect *rect = nullptr) {
 		SDL_Surface *surf = SDL_CreateRGBSurface(0, AUX.w, AUX.h, 32, 0, 0, 0, 0);
 		SDL_FillRect(surf, rect, SDL_MapRGB(surf->format, R, G, B));
@@ -103,6 +107,7 @@ public:
 		return res;
 	}
 
+	//Declaration of the clipping values
 	void SetClips(){
 		spriteClips[PLAYER] = { 0, 0, 31,39 };
 		spriteClips[BULLET] = { 33, 31, 7, 8 };
@@ -116,13 +121,14 @@ public:
 		spriteClips[AST_LIL_3] = { 166, 104, 21, 19 };
 		spriteClips[OVNI] = { 196, 69, 53, 30 };
 	}
-
+	//Loads a font from a path and gives it a size
 	TTF_Font *LoadFont(const char* path, int size) {
 		TTF_Font *font = nullptr;
 		font = TTF_OpenFont(path, size);
 		return font;
 	}
 
+	//Loads and prepares a font
 	RTexture LPFont(const char* path, int size,const char* txt, Uint8 R, Uint8 G, Uint8 B) {
 		RTexture res;
 		SDL_Color textColor = { R, G, B };
