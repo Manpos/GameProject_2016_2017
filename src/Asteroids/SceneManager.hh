@@ -45,14 +45,18 @@ public:
 				menu->Draw();
 				break;
 			case SELECTION:
-				menu->OnExit();
-				menu = nullptr;
+				if (menu != nullptr) {
+					menu->OnExit();
+					menu = nullptr;
+				}				
 				selection->Update();
 				selection->Draw();
 				break;
 			case GAME:
-				selection->OnExit();
-				selection = nullptr;
+				if (selection != nullptr) {
+					selection->OnExit();
+					selection = nullptr;
+				}				
 				game->Update();
 				game->Draw();
 				break;
