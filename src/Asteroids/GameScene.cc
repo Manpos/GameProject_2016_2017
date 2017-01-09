@@ -1,5 +1,6 @@
 #include "GameScene.hh"
 #include "SceneManager.hh"
+#include "InputManager.hh"
 
 void GameScene::OnEntry() {
 	RND.SetClips();
@@ -33,8 +34,8 @@ void GameScene::Update() {
 	Score();
 
 	if (AUX.paused) {
-		if (IM.ButtonPress(resume.rect)) AUX.paused = false;
-		//if (IM.ButtonPress(resume.rect)) {  end = true; }
+		//if (IM.ButtonPress(resume.rect)) AUX.paused = false;
+		if (IM.ButtonPress(resume.rect)) {  end = true; }
 		else if (IM.ButtonPress(mainMenu.rect)) { SM.menu = new MenuScene; SM.curr = MENU; }
 		else if (IM.ButtonPress(exit.rect)) AUX.gameRunning = false;
 	}
@@ -43,11 +44,16 @@ void GameScene::Update() {
 		ply.Update();
 		EnemySpawn();
 		EnemiesUpdate();
+		bulletTest1.Update();
 	}
 
 	if (end) {
 		SM.rank = new RankScene;
 		SM.curr = RANK;
+	}
+
+	if (ply.Shoot()) {
+		bulletTest1.Shoot(ply.pos.x, ply.pos.y, ply.delta_x, ply.delta_y);
 	}
 
 	IM.ResetButton();
@@ -56,6 +62,7 @@ void GameScene::Update() {
 void GameScene::Draw() {
 	EnemiesDraw();
 	ply.Draw();
+	bulletTest1.Draw();
 
 	if (AUX.paused) {
 		RND.PrintText(pauseL.rect, pauseL.text);

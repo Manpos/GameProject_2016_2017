@@ -6,9 +6,7 @@
 class GameObject {
 protected:
 	SDL_Texture *spriteSheetText = RND.SurfToText(RND.LoadImage("../../res/SpriteSheet.png"));
-	struct position {
-		float x, y;
-	};
+
 	struct velocity {
 		float x , y;
 	};
@@ -32,9 +30,15 @@ protected:
 	}
 
 	SpriteID id;
-	position pos;
+
 	velocity vel;
 public:
+
+	struct position {
+		float x, y;
+	};
+
+	position pos;
 
 	GameObject(){}
 	void OnEntry();

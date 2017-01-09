@@ -32,7 +32,6 @@ public:
 	}
 
 	void Update() {
-		while (AUX.gameRunning) {
 			AUX.current = curr;
 			switch (curr)
 			{
@@ -57,7 +56,8 @@ public:
 					selection->OnExit();
 					selection = nullptr;
 				}				
-				game->Update();
+				TM.Update([&] {
+					game->Update(); });
 				game->Draw();
 				break;
 			case RANK:
@@ -84,7 +84,6 @@ public:
 			default:
 				break;
 			}
-		}		
+				
 	}
 };
-

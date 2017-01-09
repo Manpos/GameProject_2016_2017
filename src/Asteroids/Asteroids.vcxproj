@@ -114,6 +114,7 @@
     </Link>
   </ItemDefinitionGroup>
   <ItemGroup>
+    <ClCompile Include="Bullet.cc" />
     <ClCompile Include="GameScene.cc" />
     <ClCompile Include="RankScene.cc" />
     <ClCompile Include="SelectionScene.cc" />
@@ -125,6 +126,7 @@
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="AuxLib.hh" />
+    <ClInclude Include="Bullet.hh" />
     <ClInclude Include="EnemyClass.hh" />
     <ClInclude Include="GameObject.hh" />
     <ClInclude Include="GameScene.hh" />

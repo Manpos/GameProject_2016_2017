@@ -3,6 +3,7 @@
 #include <SDL_image.h>
 #include <SDL_surface.h>
 #include <SDL_ttf.h>
+#include "TimeManager.hh"
 
 #define RND Renderer::Instance()
 
@@ -43,7 +44,7 @@ public:
 	}
 
 	void SetWindow(SDL_Window* w) {
-		renderer = SDL_CreateRenderer(w, -1, SDL_RENDERER_ACCELERATED);
+		renderer = SDL_CreateRenderer(w, -1, SDL_RENDERER_ACCELERATED | SDL_RENDERER_PRESENTVSYNC);
 		SDL_SetRenderDrawColor(renderer, R, G, B, A);
 	};
 

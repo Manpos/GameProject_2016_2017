@@ -3,21 +3,20 @@
 #include "GameObject.hh"
 #include <time.h>
 
-
 enum EnemyType { SMALL, MEDIUM, LARGE, S_OVNI, L_OVNI };
 
 class Enemy : public GameObject{
 private:
-
 	EnemyType type = MEDIUM;
 	SDL_Rect area;
-	float rotateSpeed = 0.003, rotateBase = 0;
+	float rotateSpeed = 0.5, rotateBase = 0;
 	float rotValue;
 	int rotateSide;
+	int radi;
 public:
 	Enemy() {
-		vel.x = 0.2;
-		vel.y = 0.2;
+		vel.x = 0;
+		vel.y = 0;
 		id = (SpriteID)(rand() % 8 + 2);
 	} 
 	Enemy(float x, float y, EnemyType ty) {
@@ -28,19 +27,24 @@ public:
 	};
 
 	void Start() {
-		/*switch (type)
+
+		pos.x = RandomPos();
+		pos.y = RandomPos();
+
+		switch (type)
 		{
 		case SMALL: 
-			vel.x = (rand() * 9 + 5) / 10;
-			vel.y = (rand() * 9 + 5) / 10;
+			vel.x = (rand() % 3) + 5;
+			vel.y = (rand() % 3) + 5;
+			//radi = ;
 			break;
 		case MEDIUM:
-			vel.x = (rand() * 4 + 1) / 10;
-			vel.y = (rand() * 4 + 1) / 10;
+			vel.x = (rand() % 3) + 1;
+			vel.y = (rand() % 3) + 1;
 			break;
 		case LARGE:
-			vel.x = (rand() * 4 + 1) / 10;
-			vel.y = (rand() * 4 + 1) / 10;
+			vel.x = (rand() % 2) + 1;
+			vel.y = (rand() % 2) + 1;
 			break;
 		case S_OVNI:
 			break;
@@ -48,10 +52,8 @@ public:
 			break;
 		default:
 			break;
-		}*/
-
-		pos.x = RandomPos();
-		pos.y = RandomPos();
+		}
+		std::cout << "PosX:  " << pos.x << "	pos.y:  " << pos.y << std::endl;
 	}
 
 
@@ -62,12 +64,11 @@ public:
 	}
 	
 	float RandomPos() {
-		float temp = rand() % 600;
-		return temp;
+		return (rand() % 600 + 10);
 	}
 
 	void Draw() {
-		RND.PrintText(pos.x, pos.y, spriteSheetText, &RND.spriteClips[id], rotValue);
+		RND.PrintText(pos.x, pos.y, spriteSheetText, &RND.spriteClips[id], rotateEnemy());
 	}
 
 	float rotateEnemy() {
@@ -75,15 +76,17 @@ public:
 			rotateBase = 0;
 			return rotateBase;
 		}
-		else return (rotateBase += rotateSpeed)*rotateSide;
+		else return (rotateBase += rotateSpeed);
 	}
 
 	void move() {
-		//pos.x += vel.x;
-		//pos.y += vel.y;
+		pos.x += vel.x;
+		pos.y += vel.y;
 	}
 
-
+	//void ColidePlayer(float plyX, float plyY, float plyW, float plyH) {
+	//	if (pos.x)
+	//}
 
 	void defineRotationSize() {
 		int temp = rand() % 10 + 1;

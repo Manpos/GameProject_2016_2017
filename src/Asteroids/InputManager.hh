@@ -21,7 +21,8 @@ public:
 	//Control bools
 	bool buttonPressed;
 	bool resetButton;
-	int plMove = 0;
+	plMovement plMove = STATIC;
+	bool shooting = false;
 
 	inline static InputManager& Instance() { //Singleton creation
 		static InputManager a;
@@ -42,21 +43,39 @@ public:
 		while (SDL_PollEvent(&event)) {
 			switch (event.type) {
 			case SDL_QUIT: AUX.gameRunning = false; break;	//This event happens when the cross of the window is cilcked
-			case SDL_MOUSEBUTTONDOWN: buttonPressed = true;   std::cout << "1"; break;
-			case SDL_MOUSEBUTTONUP: resetButton = true; std::cout << "0";  break;
+			case SDL_MOUSEBUTTONDOWN: 
+				buttonPressed = true;   
+				std::cout << "1"; 
+				if (AUX.gameRunning) {
+					shooting = true;
+				}
+				break;
+			case SDL_MOUSEBUTTONUP: 
+				resetButton = true; 
+				std::cout << "0"; 
+				if (AUX.gameRunning) {
+					shooting = false;
+				}
+				break;
 			case SDL_MOUSEMOTION: g_mouseCoords.x = event.motion.x; g_mouseCoords.y = event.motion.y; break;
-			case SDL_KEYDOWN: std::cout << "Has pitjat una tecla eh" << std::endl;
+			case SDL_KEYDOWN:
 				switch (event.key.keysym.sym) {
 				case SDLK_ESCAPE: AUX.paused = !AUX.paused; break;
-				case SDLK_w: plMove = 1; break;
-				case SDLK_a: plMove = 2; break;
-				case SDLK_s: plMove = 3; break;
-				case SDLK_d: plMove = 4; break;
+				case SDLK_w: plMove = FOWARD; break;
+				case SDLK_a: plMove = LEFT; break;
+				case SDLK_s: plMove = STATIC;  break;
+				case SDLK_d: plMove = RIGHT; break;
+				case SDLK_SPACE: shooting = true;
 				} break;
-			case SDL_KEYUP: plMove = 0;  break;
+			case SDL_KEYUP: plMove = STATIC;  shooting = false; break;
 			}
 			}
 		}
+
+	bool IsShooting() {
+		return shooting;
+	}
+
 	bool ButtonPress(SDL_Rect rect) {
 		if (IM.GetMouseCoords().x > rect.x && IM.GetMouseCoords().x < (rect.x + rect.w) &&
 			IM.GetMouseCoords().y > rect.y && IM.GetMouseCoords().y < (rect.y + rect.h) &&
@@ -72,7 +91,7 @@ public:
 		}
 	}
 
-	int returnMovement() {
+	plMovement returnMovement() {
 		return plMove;
 	}
 };

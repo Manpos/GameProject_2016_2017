@@ -5,6 +5,7 @@
 #include "TimeManager.hh"
 #include "PlayerClass.hh"
 #include "GameObject.hh"
+#include "Bullet.hh"
 
 class GameScene : public Scene {
 
@@ -33,6 +34,11 @@ private:
 	Player ply;
 
 public:
+
+	Bullet bulletTest1;
+	
+	std::vector<Bullet> bulletVector;
+
 	void OnEntry();
 	void OnExit();
 	void Update();
@@ -85,6 +91,7 @@ public:
 			enemC[i].Draw();
 		}
 	}
+
 
 	void Score() {
 		if (prevScore != score) {
