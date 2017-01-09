@@ -5,14 +5,15 @@
 #include "SceneManager.hh"
 #include "transform.hh"
 
- 
+ //Definition of the methods of RankScene class
 void RankScene::OnEntry() {
+	//Creation and positioning of the button
 	button = RND.LPFont(path, 30, "MAIN MENU", 255, 255, 255);
 	transform.position(button.rect, 0, 300, CENTERED);
 }
 
 void RankScene::OnExit() {
-	delete this;
+	delete this;							//Deletes this object when called
 }
 
 void RankScene::Update() {
@@ -28,11 +29,12 @@ void RankScene::Draw() {
 
 }
 
+//Loads a binary file depending on the difficultty, if it doesn't exists it's created
 void RankScene::LoadRank(difficulties difficult) {
-	char *path = dif[difficult];
-	data.resize(RANK_LEN);
-	SDL_RWops* file = SDL_RWFromFile(path, "r+b");
-	//File doesn't exists
+	char *path = dif[difficult];					//Copies the path from dif depending on the parameter introduced
+	data.resize(RANK_LEN);							//Resizes the lenght of the vector to avoid having it longer than the lenght specified
+	SDL_RWops* file = SDL_RWFromFile(path, "r+b");	//Opens the file to read
+	//Check if the files exists
 	if (file == nullptr) {
 		std::cout << "Unable to open file" << "SDL Error: " << SDL_GetError() << std::endl;
 		file = SDL_RWFromFile(path, "w+b");
@@ -145,10 +147,8 @@ void RankScene::PrintRanking(int nameX, int sep, int initial) {
 	RTexture rankName[RANK_LEN];
 	RTexture rankScore[RANK_LEN];
 	
-	int scoreX = AUX.w - nameX;
-	auto it = set.end();
-
-	
+	int scoreX = AUX.w - nameX - 50;
+	auto it = set.end();	
 
 	for (int i = 0; i < RANK_LEN; ++i) {
 		--it;
@@ -157,9 +157,7 @@ void RankScene::PrintRanking(int nameX, int sep, int initial) {
 		rankScore[i] = RND.PrepareFont(font, tmp.c_str(), 255, 255, 255);
 
 		transform.position(rankName[i].rect, nameX, sep*i + initial);
-		transform.position(rankScore[i].rect, scoreX, sep*i + initial);
-
-		
+		transform.position(rankScore[i].rect, scoreX, sep*i + initial);		
 
 		RND.PrintText(rankName[i].rect, rankName[i].text);
 		RND.PrintText(rankScore[i].rect, rankScore[i].text);
