@@ -12,7 +12,8 @@ private:
 
 	int life;
 	float rotValue;
-	position referencePoint;
+	position refPt;
+	SDL_Point ptPos;
 	bool hasShoot = false;
 	int bulletCounter = 2;
 	
@@ -35,19 +36,22 @@ public:
 	void Update() {
 		move();
 		rotate();
-		rotValue = angle_deg;
+		rotValue = 90 + angle_deg;
+		std::cout << angle_deg <<std::endl;
 		CheckBorders(id);
 	};
 
 	void Draw() {
 		RND.PrintText(pos.x, pos.y, spriteSheetText, &RND.spriteClips[PLAYER], rotValue);
-		std::cout << "Vel X: " << vel.x << "	Vel Y: " << vel.y << std::endl;
+		//std::cout << "Vel X: " << vel.x << "	Vel Y: " << vel.y << std::endl;
 	}
 	Player() {
 		pos.x = 400;
 		pos.y = 400;
 		vel.x = 0;
 		vel.y = 0;
+		ptPos.x = pos.x + (float)RND.spriteClips[PLAYER].w / 2.00;
+		ptPos.y = pos.y + (float)RND.spriteClips[PLAYER].h / 2.00;
 		id = PLAYER;
 	}
 	Player(float x, float y, float velX, float velY, int lif, float refX, float refY) {
@@ -56,17 +60,17 @@ public:
 		//vel.x = velX;
 		//vel.y = velY;
 		life = lif;
-		referencePoint.x = refX;
-		referencePoint.y = refY;
+		refPt.x = refX;
+		refPt.y = refY;
 	};
 
 	void move() {
 
 		if (IM.returnMovement() == FOWARD) {
-			if (vel.x <= 70 || vel.y <= 70) {
+			//if (vel.x <= 70 || vel.y <= 70) {
 				vel.y += sin(degreesToRadians(angle_deg)) * speed;
 				vel.x += cos(degreesToRadians(angle_deg)) * speed;
-			}
+			//}
 		}
 		if (IM.returnMovement() == STATIC) {
 			vel.x *= friction;
@@ -112,9 +116,9 @@ public:
 	}
 
 	double rotate() {
-	delta_y = pos.y - IM.GetMouseCoords().y;
-	delta_x = pos.x - IM.GetMouseCoords().x;
-	angle_deg = -90 + ((atan2(delta_y, delta_x) * 180.0000) / 3.1416);
+	delta_y = IM.GetMouseCoords().y - pos.y;
+	delta_x = IM.GetMouseCoords().x - pos.x;
+	angle_deg = ((atan2(delta_y, delta_x) * 180.0000) / 3.1416);
 	return angle_deg;
 	}
 
