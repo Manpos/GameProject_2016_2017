@@ -16,6 +16,7 @@ class InputManager {						//Class created to control the inputs of the user
 private:
 	SDL_Event event;						//SDL_Event which will get user's inputs
 	MouseCoords g_mouseCoords;
+	bool mouseBlocked = false;
 public:
 
 	//Control bools
@@ -57,17 +58,35 @@ public:
 					shooting = false;
 				}
 				break;
-			case SDL_MOUSEMOTION: g_mouseCoords.x = event.motion.x; g_mouseCoords.y = event.motion.y; break;
+			case SDL_MOUSEMOTION: 
+				g_mouseCoords.x = event.motion.x; 
+				g_mouseCoords.y = event.motion.y;
+				mouseBlocked = false;
+				break;
 			case SDL_KEYDOWN:
-				switch (event.key.keysym.sym) {
-				case SDLK_ESCAPE: AUX.paused = !AUX.paused; break;
-				case SDLK_w: plMove = FOWARD; break;
-				case SDLK_a: plMove = LEFT; break;
-				case SDLK_s: plMove = STATIC;  break;
-				case SDLK_d: plMove = RIGHT; break;
-				case SDLK_SPACE: shooting = true;
-				} break;
-			case SDL_KEYUP: plMove = STATIC;  shooting = false; break;
+				if (event.key.keysym.sym == SDLK_ESCAPE && AUX.inGame) {
+					AUX.paused = !AUX.paused;
+				}
+				if (event.key.keysym.sym == SDLK_w) {
+					plMove = FOWARD;
+				}
+				if (event.key.keysym.sym == SDLK_a) {
+					mouseBlocked = true;
+					plMove = LEFT;
+				}
+				if (event.key.keysym.sym == SDLK_d) {
+					mouseBlocked = true;
+					plMove = RIGHT;
+				}
+				if (event.key.keysym.sym == SDLK_SPACE) {
+					shooting = true;
+				}
+
+				break;
+			case SDL_KEYUP: 
+				plMove = STATIC;  
+				shooting = false; 
+				break;
 			}
 			}
 		}
@@ -93,5 +112,8 @@ public:
 
 	plMovement returnMovement() {
 		return plMove;
+	}
+	bool ReturnMouseBlock() {
+		return mouseBlocked;
 	}
 };
