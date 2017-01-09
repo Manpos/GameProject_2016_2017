@@ -13,14 +13,11 @@ private:
 	int life;
 	float rotValue;
 	position refPt;
-	SDL_Point ptPos;
-	bool hasShoot = false;
-	int bulletCounter = 2;
+	float bulletCounter = 0;
 	
-	float friction = 0.95;
-	float rotateSpeed = 0.5;
-	float speed = 10;
-	double angle_deg = ((atan2(delta_y, delta_x) * 180.0000) / 3.1416);
+	float friction = 0.90;
+	float rotateSpeed = 5;
+	float speed = 5;
 
 
 public:
@@ -28,6 +25,8 @@ public:
 	// = pos.y - IM.GetMouseCoords().y
 	float delta_y;
 	float delta_x;
+	double angle_deg = 0;
+
 	// = pos.x - IM.GetMouseCoords().x
 
 	void OnEntry() {
@@ -35,10 +34,15 @@ public:
 	}
 	void Update() {
 		move();
-		rotate();
+		if (!IM.ReturnMouseBlock()) {
+			rotate();
+		}
 		rotValue = 90 + angle_deg;
-		std::cout << angle_deg <<std::endl;
 		CheckBorders(id);
+
+		ptPos.x = pos.x + (float)RND.spriteClips[PLAYER].w / 2.00;
+		ptPos.y = pos.y + (float)RND.spriteClips[PLAYER].h / 2.00;
+
 	};
 
 	void Draw() {
@@ -50,8 +54,7 @@ public:
 		pos.y = 400;
 		vel.x = 0;
 		vel.y = 0;
-		ptPos.x = pos.x + (float)RND.spriteClips[PLAYER].w / 2.00;
-		ptPos.y = pos.y + (float)RND.spriteClips[PLAYER].h / 2.00;
+
 		id = PLAYER;
 	}
 	Player(float x, float y, float velX, float velY, int lif, float refX, float refY) {
@@ -66,50 +69,50 @@ public:
 
 	void move() {
 
-		if (IM.returnMovement() == FOWARD) {
-			//if (vel.x <= 70 || vel.y <= 70) {
-				vel.y += sin(degreesToRadians(angle_deg)) * speed;
-				vel.x += cos(degreesToRadians(angle_deg)) * speed;
-			//}
+		if (IM.moveUp ) {
+
+			vel.y += sin(AUX.degreesToRadians(angle_deg)) * speed;
+			vel.x += cos(AUX.degreesToRadians(angle_deg)) * speed;
+			if (vel.x >= 300) {
+				vel.x = 300;
+			}
+			else if (vel.x <= -300) {
+				vel.x = -300;
+			}
+			if (vel.y >= 300) {
+				vel.y = 300;
+			}
+			else if (vel.y <= -300) {
+				vel.y = -300;
+			}
 		}
-		if (IM.returnMovement() == STATIC) {
+		if (IM.noMove) {
 			vel.x *= friction;
 			vel.y *= friction;
 		}
 		
-		if (IM.returnMovement() == LEFT) {
+		if (IM.moveLeft) {
 			angle_deg -= rotateSpeed ;
 		}
-		if (IM.returnMovement() == RIGHT) {
+		if (IM.moveRight) {
 			angle_deg += rotateSpeed ;
 		}
 		
 		pos.x += vel.x * TM.GetDeltaTime() ;
 		pos.y += vel.y * TM.GetDeltaTime() ;
-		/*
-		std::cout << "Vel X: " << vel.x << "	Vel Y: " << vel.y << std::endl;
 
-		switch (IM.returnMovement())
-		{
-		case 1: pos.y -= vel.y * TM.GetDeltaTime(); break;
-		case 2: pos.x -= vel.x * TM.GetDeltaTime(); break;
-		case 3: pos.y += vel.y * TM.GetDeltaTime(); break; 
-		case 4: pos.x += vel.x * TM.GetDeltaTime(); break;
-		}*/
 	};
 
 	bool Shoot() {
-		if (IM.IsShooting() && !hasShoot) {
-			if (bulletCounter >= 200) {
-				hasShoot = true;
-				bulletCounter = 0;
+		if (IM.IsShooting()) {
+			if (bulletCounter < 0) {
+				bulletCounter = 0.5;
 				std::cout << "SHOT" << std::endl;
 				return true;
 			}
 		}
-		if (bulletCounter < 200) {
-			bulletCounter += 1;
-			hasShoot = false;
+		if (bulletCounter >= 0) {
+			bulletCounter -= TM.GetDeltaTime();
 			return false;
 		}
 		return false;
@@ -122,7 +125,4 @@ public:
 	return angle_deg;
 	}
 
-	float degreesToRadians(double degs) {
-		return degs * 3.1416 / 180;
-	}
 };

@@ -13,6 +13,7 @@ public:
 	}
 	bool gameRunning;
 	bool paused;
+	bool inGame = false;
 	SceneType current = MENU;
 
 	//Window size
@@ -21,4 +22,9 @@ public:
 		w = we;
 		h = he;
 	}
+
+	float degreesToRadians(double degs) {
+		return degs * 3.1416 / 180;
+	}
+
 };

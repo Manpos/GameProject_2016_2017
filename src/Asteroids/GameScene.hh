@@ -27,18 +27,14 @@ private:
 	
 
 	SDL_Rect spriteSheetTest = {50,50,50,50};
-
 	EnemySpawnPos spawn;
 	std::string sc;
-	Enemy* enemC;
+	std::vector<Enemy>enemC;
+	Enemy* enem;
 	Player ply;
 
 public:
-
-	Bullet bulletTest1;
-	
 	std::vector<Bullet> bulletVector;
-
 	void OnEntry();
 	void OnExit();
 	void Update();
@@ -49,7 +45,6 @@ public:
 
 	RTexture res;
 	int score, prevScore;
-
 	int currEnemyNum;
 
 	GameScene(std::vector<float> tmp) : difMode(tmp) {
@@ -66,13 +61,12 @@ public:
 		return totalEnemies;
 	}
 
-	void EnemySpawn() {
+	void EnemySpawn(Enemy obj) {
 		if (currEnemyNum <= 0) {
-			delete[] enemC;
 			if (isPlaying) {
 				++level;
-				enemC = new Enemy[EnemySpawnNumber()];
 				for (int i = 0; i < EnemySpawnNumber(); ++i) {
+					enemC.push_back(obj);
 					enemC[i].Start();
 					currEnemyNum++;
 				}

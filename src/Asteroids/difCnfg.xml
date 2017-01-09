@@ -1,21 +1,21 @@
 <?xml version="1.0" encoding="utf-8"?>
-<difficulties k = "1" x ="5" y ="2" z="1.5">
+<difficulties k = "1" x ="5" y ="2" z="0.5">
   <dif mode="easy">
     <lifes> 5 </lifes>
     <initEnemies> 5 </initEnemies>
     <incremEnemiesNum> 2 </incremEnemiesNum>
-    <enemInitialSpeed> 1.5 </enemInitialSpeed>
+    <enemInitialSpeed> 0.5 </enemInitialSpeed>
   </dif>
   <dif mode="medium">
     <lifes> 3 </lifes>
     <initEnemies> 10 </initEnemies>
     <incremEnemiesNum> 4 </incremEnemiesNum>
-    <enemInitialSpeed> 3 </enemInitialSpeed>
+    <enemInitialSpeed> 1 </enemInitialSpeed>
   </dif>
   <dif mode="hard">
     <lifes> 1 </lifes>
     <initEnemies> 15 </initEnemies>
     <incremEnemiesNum> 8 </incremEnemiesNum>
-    <enemInitialSpeed> 4.5 </enemInitialSpeed>
+    <enemInitialSpeed> 1.5 </enemInitialSpeed>
   </dif>
 </difficulties>

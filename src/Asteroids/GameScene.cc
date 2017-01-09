@@ -22,10 +22,18 @@ void GameScene::OnEntry() {
 	level = 0;
 	score = 0;
 	prevScore = -1;
+	Bullet bulletTest;
+	AUX.inGame = true;
+	enem = new Enemy(difMode[ENEMIES_INIT_SPD]);
+	for (int i = 0; i < 10; ++i) {
+		bulletVector.push_back(bulletTest);
+	}
 }
 
 void GameScene::OnExit() {
+	delete enem;
 	AUX.paused = false;
+	AUX.inGame = false;
 	delete this;
 }
 
@@ -42,18 +50,26 @@ void GameScene::Update() {
 
 	else {
 		ply.Update();
-		EnemySpawn();
+		EnemySpawn(*enem);
 		EnemiesUpdate();
-		bulletTest1.Update();
+		for (auto i = bulletVector.begin(); i != bulletVector.end(); ++i) {
+			i->Update();
+		}
+	}
+
+	if (ply.Shoot()) {
+		for (auto i = bulletVector.begin(); i != bulletVector.end(); ++i) {
+			if (i->isAlive() == false) {
+				i->Shoot(ply.ptPos.x, ply.ptPos.y, ply.angle_deg );
+				break;
+			}
+
+		}
 	}
 
 	if (end) {
 		SM.rank = new RankScene;
 		SM.curr = RANK;
-	}
-
-	if (ply.Shoot()) {
-		bulletTest1.Shoot(ply.pos.x, ply.pos.y, ply.delta_x, ply.delta_y);
 	}
 
 	IM.ResetButton();
@@ -62,7 +78,10 @@ void GameScene::Update() {
 void GameScene::Draw() {
 	EnemiesDraw();
 	ply.Draw();
-	bulletTest1.Draw();
+
+	for (auto i = bulletVector.begin(); i != bulletVector.end(); ++i) {
+		i->Draw();
+	}
 
 	if (AUX.paused) {
 		RND.PrintText(pauseL.rect, pauseL.text);

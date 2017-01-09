@@ -7,17 +7,19 @@ enum EnemyType { SMALL, MEDIUM, LARGE, S_OVNI, L_OVNI };
 
 class Enemy : public GameObject{
 private:
-	EnemyType type = MEDIUM;
+	EnemyType type;
 	SDL_Rect area;
 	float rotateSpeed = 0.5, rotateBase = 0;
 	float rotValue;
 	int rotateSide;
 	int radi;
+	float difSpeed;
 public:
-	Enemy() {
+	Enemy(float difSpd) {
 		vel.x = 0;
 		vel.y = 0;
 		id = (SpriteID)(rand() % 8 + 2);
+		difSpeed = difSpd;
 	} 
 	Enemy(float x, float y, EnemyType ty) {
 		pos.x = x;
@@ -31,20 +33,24 @@ public:
 		pos.x = RandomPos();
 		pos.y = RandomPos();
 
+		RandomType();
+
 		switch (type)
 		{
 		case SMALL: 
-			vel.x = (rand() % 3) + 5;
-			vel.y = (rand() % 3) + 5;
-			//radi = ;
+			id = (SpriteID)(rand() % 2 + 4);
+			vel.x = 1.5 * difSpeed;
+			vel.y = 1.5 * difSpeed;
 			break;
 		case MEDIUM:
-			vel.x = (rand() % 3) + 1;
-			vel.y = (rand() % 3) + 1;
+			id = (SpriteID)(rand() % 2 + 2);
+			vel.x = (1)*difSpeed;
+			vel.y = (1)*difSpeed;
 			break;
 		case LARGE:
-			vel.x = (rand() % 2) + 1;
-			vel.y = (rand() % 2) + 1;
+			id = (SpriteID)(rand() % 3 + 6);
+			vel.x = (0.5)*difSpeed;
+			vel.y = (0.5)*difSpeed;
 			break;
 		case S_OVNI:
 			break;
@@ -53,7 +59,7 @@ public:
 		default:
 			break;
 		}
-		std::cout << "PosX:  " << pos.x << "	pos.y:  " << pos.y << std::endl;
+		//std::cout << "PosX:  " << pos.x << "	pos.y:  " << pos.y << std::endl;
 	}
 
 
@@ -61,6 +67,10 @@ public:
 		CheckBorders(id);
 		rotValue = rotateEnemy();
 		move();
+
+		ptPos.x = pos.x + (float)RND.spriteClips[id].w / 2.00;
+		ptPos.y = pos.y + (float)RND.spriteClips[id].h / 2.00;
+
 	}
 	
 	float RandomPos() {
@@ -68,7 +78,7 @@ public:
 	}
 
 	void Draw() {
-		RND.PrintText(pos.x, pos.y, spriteSheetText, &RND.spriteClips[id], rotateEnemy());
+		RND.PrintText(pos.x, pos.y, spriteSheetText, &RND.spriteClips[id], rotValue);
 	}
 
 	float rotateEnemy() {
@@ -96,6 +106,15 @@ public:
 		else rotateSide = 1;
 	}
 
+	void RandomType() {
+		int randValue = rand() % 3;
+		switch (randValue)
+		{
+		case 0: type = SMALL; break;
+		case 1: type = MEDIUM; break;
+		case 2: type = LARGE; break;
+		}
+	}
 
 	// Dispara en funció del tipus, S_OVNI dispara al jugador. L_OVNI aleatoriament
 };

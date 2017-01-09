@@ -22,8 +22,9 @@ public:
 	//Control bools
 	bool buttonPressed;
 	bool resetButton;
-	plMovement plMove = STATIC;
 	bool shooting = false;
+
+	bool moveUp = false, moveLeft = false, moveRight = false, noMove = true;
 
 	inline static InputManager& Instance() { //Singleton creation
 		static InputManager a;
@@ -68,15 +69,16 @@ public:
 					AUX.paused = !AUX.paused;
 				}
 				if (event.key.keysym.sym == SDLK_w) {
-					plMove = FOWARD;
+					moveUp = true;
+					noMove = false;
 				}
 				if (event.key.keysym.sym == SDLK_a) {
 					mouseBlocked = true;
-					plMove = LEFT;
+					moveLeft = true;
 				}
 				if (event.key.keysym.sym == SDLK_d) {
 					mouseBlocked = true;
-					plMove = RIGHT;
+					moveRight = true;
 				}
 				if (event.key.keysym.sym == SDLK_SPACE) {
 					shooting = true;
@@ -84,7 +86,19 @@ public:
 
 				break;
 			case SDL_KEYUP: 
-				plMove = STATIC;  
+				if (event.key.keysym.sym == SDLK_w) {
+					noMove = true;
+				}
+				if (event.key.keysym.sym == SDLK_a) {
+					moveLeft = false;
+				}
+				if (event.key.keysym.sym == SDLK_d) {
+					moveRight = false;
+				}
+				if (event.key.keysym.sym == SDLK_w) {
+					moveUp = false;
+				}
+
 				shooting = false; 
 				break;
 			}
@@ -110,9 +124,6 @@ public:
 		}
 	}
 
-	plMovement returnMovement() {
-		return plMove;
-	}
 	bool ReturnMouseBlock() {
 		return mouseBlocked;
 	}
