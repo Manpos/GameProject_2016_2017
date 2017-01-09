@@ -24,6 +24,8 @@ public:
 	bool resetButton;
 	bool shooting = false;
 
+	bool test = false;
+
 	bool moveUp = false, moveLeft = false, moveRight = false, noMove = true;
 
 	inline static InputManager& Instance() { //Singleton creation
@@ -83,6 +85,9 @@ public:
 				if (event.key.keysym.sym == SDLK_SPACE) {
 					shooting = true;
 				}
+				if (event.key.keysym.sym == SDLK_r) {
+					test = true;
+				}
 
 				break;
 			case SDL_KEYUP: 
@@ -98,7 +103,9 @@ public:
 				if (event.key.keysym.sym == SDLK_w) {
 					moveUp = false;
 				}
-
+				if (event.key.keysym.sym == SDLK_r) {
+					test = false;
+				}
 				shooting = false; 
 				break;
 			}
@@ -122,6 +129,10 @@ public:
 			IM.resetButton = false;
 			IM.buttonPressed = false;
 		}
+	}
+
+	bool TestKey() {
+		return test;
 	}
 
 	bool ReturnMouseBlock() {

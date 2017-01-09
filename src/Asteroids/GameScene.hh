@@ -31,7 +31,7 @@ private:
 	std::string sc;
 	std::vector<Enemy>enemC;
 	Enemy* enem;
-	Player ply;
+	Player *ply;
 
 public:
 	std::vector<Bullet> bulletVector;
@@ -42,7 +42,7 @@ public:
 	
 	//SCORE
 	TTF_Font *font;
-
+	SDL_Texture *lifeIcon;
 	RTexture res;
 	int score, prevScore;
 	int currEnemyNum;
@@ -96,5 +96,12 @@ public:
 			transform.position(res.rect, 15, 15);
 		}
 		RND.PrintText(res.rect, res.text);
+	}
+
+	void DrawLifes(SDL_Texture *lifeIc, int x, int y){
+		int initalX = x - RND.spriteClips[PLAYER].w, initialY = y;
+		for (int i = 0; i < ply->life; ++i) {
+			RND.PrintText(initalX - (RND.spriteClips[PLAYER].w * i) , initialY, lifeIc, &RND.spriteClips[PLAYER]);
+		}
 	}
 };
