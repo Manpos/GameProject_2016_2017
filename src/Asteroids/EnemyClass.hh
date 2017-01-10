@@ -23,23 +23,14 @@ public:
 		id = (SpriteID)(rand() % 8 + 2);
 		difSpeed = difSpd;
 	} 
-	Enemy(float x, float y, EnemyType ty) {
+	Enemy(float x, float y, EnemyType ty, float difSpd) {
 		pos.x = x;
 		pos.y = y;
 		type = ty;
-		defineRotationSize();
-	};
-
-	void Start() {
-
-		pos.x = RandomPos();
-		pos.y = RandomPos();
-
-		RandomType();
-
+		difSpeed = difSpd;
 		switch (type)
 		{
-		case SMALL: 
+		case SMALL:
 			id = (SpriteID)(rand() % 2 + 4);
 			vel.x = 1.5 * difSpeed;
 			vel.y = 1.5 * difSpeed;
@@ -62,6 +53,41 @@ public:
 			break;
 		}
 		cir.r = RND.spriteClips[id].w / 2;
+	};
+
+	void Start() {
+
+		pos.x = RandomPos();
+		pos.y = RandomPos();
+
+		RandomType();
+
+		switch (type)
+		{
+		case SMALL:
+			id = (SpriteID)(rand() % 2 + 4);
+			vel.x = 1.5 * difSpeed;
+			vel.y = 1.5 * difSpeed;
+			break;
+		case MEDIUM:
+			id = (SpriteID)(rand() % 2 + 2);
+			vel.x = (1)*difSpeed;
+			vel.y = (1)*difSpeed;
+			break;
+		case LARGE:
+			id = (SpriteID)(rand() % 3 + 6);
+			vel.x = (0.5)*difSpeed;
+			vel.y = (0.5)*difSpeed;
+			break;
+		case S_OVNI:
+			break;
+		case L_OVNI:
+			break;
+		default:
+			break;
+		}
+
+		cir.r = RND.spriteClips[id].w / 2;
 	}
 
 
@@ -72,6 +98,10 @@ public:
 
 		cir.x = pos.x + (float)RND.spriteClips[id].w / 2.00;
 		cir.y = pos.y + (float)RND.spriteClips[id].h / 2.00;
+
+		if (colidedByBullet) {
+
+		}
 
 	}
 	
@@ -118,6 +148,27 @@ public:
 		}
 	}
 
+	//std::vector<Enemy> Destroy() {
+	//	std::vector<Enemy> temp(0);
+	//	if (type == SMALL) {
+	//		return temp;
+	//	}
+
+	//	else if (type == MEDIUM) {
+	//		Enemy dividedEnemy(cir.x - cir.r - 10, cir.y, SMALL);
+	//		Enemy dividedEnemy2(cir.x + cir.r + 10, cir.y, SMALL);
+	//		temp.push_back(dividedEnemy);
+	//		temp.push_back(dividedEnemy2);
+	//		return temp;
+	//	}
+	//	else if (type == LARGE) {
+	//		Enemy dividedEnemy3(cir.x - cir.r - 10, cir.y, MEDIUM);
+	//		Enemy dividedEnemy4(cir.x + cir.r + 10, cir.y, MEDIUM);
+	//		temp.push_back(dividedEnemy3);
+	//		temp.push_back(dividedEnemy4);
+	//		return temp;
+	//	}
+	//}
 
 
 };

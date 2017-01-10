@@ -6,6 +6,8 @@
 #include <time.h>
 #include "transform.hh"
 
+#define SHOOT_TIME 0.5
+
 class Player : public GameObject{
 
 private:
@@ -119,7 +121,7 @@ public:
 	bool Shoot() {
 		if (IM.IsShooting()) {
 			if (bulletCounter < 0) {
-				bulletCounter = 0.5;
+				bulletCounter = SHOOT_TIME;
 				//std::cout << "SHOT" << std::endl;
 				return true;
 			}

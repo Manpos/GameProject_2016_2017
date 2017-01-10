@@ -2,6 +2,8 @@
 #include "SceneManager.hh"
 #include "InputManager.hh"
 
+#define MAX_BULLETS 10
+
 void GameScene::OnEntry() {
 	RND.SetClips();
 	pauseL = RND.CreateSolid(0, 0, 0, 200);
@@ -28,7 +30,7 @@ void GameScene::OnEntry() {
 	AUX.inGame = true;
 	ply = new Player(difMode[LIFE]);
 	enem = new Enemy(difMode[ENEMIES_INIT_SPD]);
-	for (int i = 0; i < 10; ++i) {
+	for (int i = 0; i < MAX_BULLETS; ++i) {
 		bulletVector.push_back(bulletTest);
 	}
 	
@@ -58,10 +60,7 @@ void GameScene::Update() {
 		EnemySpawn(*enem);
 		EnemiesUpdate();
 		BulletColided();
-		for (auto i = bulletVector.begin(); i != bulletVector.end(); ++i) {
-			i->Update();
-		}
-
+		
 		if (ply->Shoot()) {
 			for (auto i = bulletVector.begin(); i != bulletVector.end(); ++i) {
 				if (i->isAlive() == false) {
@@ -71,7 +70,9 @@ void GameScene::Update() {
 
 			}
 		}
+
 		for (auto i = bulletVector.begin(); i != bulletVector.end(); ++i) {
+			i->Update();
 			if (i->isAlive()) {
 				i->CheckColision(enemC);
 			}

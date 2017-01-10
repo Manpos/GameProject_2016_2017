@@ -27,6 +27,7 @@ public:
 			if (distancePoints < totalRadiusSquared) {
 				std::cout << "Estas tocant loco" << std::endl;
 				i->colidedByBullet = true;
+				alive = false;
 			}
 		}
 	}

@@ -9,7 +9,6 @@ Bullet::Bullet() {
 
 void Bullet::Update() {
 	if (alive) {
-		//CollisionDetector();
 		pos.x += vel.x * TM.GetDeltaTime();
 		pos.y += vel.y * TM.GetDeltaTime();
 		cir.x = pos.x + RND.spriteClips[BULLET].w / 2;

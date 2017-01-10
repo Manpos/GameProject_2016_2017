@@ -7,6 +7,10 @@
 #include "GameObject.hh"
 #include "Bullet.hh"
 
+#define L_SCORE 20
+#define M_SCORE 50
+#define S_SCORE 100
+
 class GameScene : public Scene {
 
 	struct EnemySpawnPos {
@@ -112,21 +116,30 @@ public:
 				
 				if (i->type == SMALL) {
 					enemC.erase(i);
+					--currEnemyNum;
+					score += S_SCORE;
+					break;
 				}
 							
 				else if (i->type == MEDIUM) {
-					Enemy dividedEnemy(i->cir.x - i->cir.r - 10, i->cir.y, SMALL);
-					Enemy dividedEnemy2(i->cir.x + i->cir.r + 10, i->cir.y, SMALL);
+					Enemy dividedEnemy(i->cir.x - i->cir.r - 10, i->cir.y, SMALL, difMode[ENEMIES_INIT_SPD]);
+					Enemy dividedEnemy2(i->cir.x + i->cir.r + 10, i->cir.y, SMALL, difMode[ENEMIES_INIT_SPD]);
+					enemC.erase(i);
 					enemC.push_back(dividedEnemy);
 					enemC.push_back(dividedEnemy2);
-					enemC.erase(i);
+					++currEnemyNum;
+					score += M_SCORE;
+					break;
 				}
 				else if (i->type == LARGE) {
-					Enemy dividedEnemy3(i->cir.x - i->cir.r - 10, i->cir.y, MEDIUM);
-					Enemy dividedEnemy4(i->cir.x + i->cir.r + 10, i->cir.y, MEDIUM);
+					Enemy dividedEnemy3(i->cir.x - i->cir.r - 10, i->cir.y, MEDIUM, difMode[ENEMIES_INIT_SPD]);
+					Enemy dividedEnemy4(i->cir.x + i->cir.r + 10, i->cir.y, MEDIUM,difMode[ENEMIES_INIT_SPD]);
+					enemC.erase(i);
 					enemC.push_back(dividedEnemy3);
 					enemC.push_back(dividedEnemy4);
-					enemC.erase(i);
+					++currEnemyNum;
+					score += L_SCORE;
+					break;
 				}
 				
 			}
