@@ -121,7 +121,7 @@ public:
 	};
 
 	bool Shoot() {
-		if (IM.IsShooting()) {
+		if (IM.IsShooting() && !dead) {
 			if (bulletCounter < 0) {
 				bulletCounter = SHOOT_TIME;
 				//std::cout << "SHOT" << std::endl;
