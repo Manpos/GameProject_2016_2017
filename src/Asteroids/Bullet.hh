@@ -18,7 +18,7 @@ public:
 
 	template <typename T>
 	void CheckColision(std::vector<T> &enemies) {
-		float totalRadius, totalRadiusSquared, distancePoints, distanceBetweenPoints;
+		float totalRadius, totalRadiusSquared, distancePoints;
 		bool colision = false;
 		for (auto i = enemies.begin(); i != enemies.end(); ++i) {
 			totalRadius = cir.r + i->cir.r;

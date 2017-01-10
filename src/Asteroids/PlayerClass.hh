@@ -61,8 +61,9 @@ public:
 			alive = false;
 		}
 
-		ptPos.x = pos.x + (float)RND.spriteClips[PLAYER].w / 2.00;
-		ptPos.y = pos.y + (float)RND.spriteClips[PLAYER].h / 2.00;
+		cir.x = pos.x + (float)RND.spriteClips[PLAYER].w / 2.00;
+		cir.y = pos.y + (float)RND.spriteClips[PLAYER].h / 2.00;
+
 
 	};
 
@@ -78,6 +79,7 @@ public:
 		vel.x = 0;
 		vel.y = 0;
 		life = lf;
+		cir.r = RND.spriteClips[PLAYER].w / 2;
 
 		id = PLAYER;
 	}
@@ -158,6 +160,19 @@ public:
 		}
 
 		std::cout << respawnTime << std::endl;
+	}
+
+	template <typename T>
+	void CheckEnemiesColision(std::vector<T> enemies) {
+		float totalRadius, totalRadiusSquared, distancePoints;
+		for (auto i = enemies.begin(); i != enemies.end(); ++i) {
+			totalRadius = cir.r + i->cir.r;
+			totalRadiusSquared = totalRadius * totalRadius;
+			distancePoints = pow((i->cir.x - cir.x), 2) + pow((i->cir.y - cir.y), 2);
+			if (distancePoints <= totalRadiusSquared) {
+				dead = true;
+			}
+		}
 	}
 
 };
