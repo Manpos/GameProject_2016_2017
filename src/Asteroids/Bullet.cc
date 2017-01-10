@@ -9,8 +9,11 @@ Bullet::Bullet() {
 
 void Bullet::Update() {
 	if (alive) {
+		//CollisionDetector();
 		pos.x += vel.x * TM.GetDeltaTime();
 		pos.y += vel.y * TM.GetDeltaTime();
+		cir.x = pos.x + RND.spriteClips[BULLET].w / 2;
+		cir.y = pos.y + RND.spriteClips[BULLET].h / 2;
 	}
 	CheckBulletBorders();
 }
@@ -24,6 +27,7 @@ void Bullet::Shoot(float stX, float stY, float angle) {
 	vel.y = sin(AUX.degreesToRadians(angle)) * 500;
 	vel.x = cos(AUX.degreesToRadians(angle)) * 500;
 	alive = true;
+	cir.r = RND.spriteClips[BULLET].w / 2;
 }
 
 void Bullet::Draw() {
@@ -54,8 +58,3 @@ void Bullet::CheckBulletBorders() {
 		}
 }
 
-void Bullet::MakeUnitaryVector(float coordX, float coordY) {
-	float module;
-	module = sqrt((pow(coordX, 2) + (pow(coordY, 2))));
-
-}

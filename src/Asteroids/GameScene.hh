@@ -104,4 +104,32 @@ public:
 			RND.PrintText(initalX - (RND.spriteClips[PLAYER].w * i) , initialY, lifeIc, &RND.spriteClips[PLAYER]);
 		}
 	}
+
+	void BulletColided() {
+		for (auto i = enemC.begin(); i != enemC.end(); ++i) { // Iterate through the vector of enemies
+			if (i->colidedByBullet) { // Checks if the enemy is hited
+				std::cout << "MEC" << std::endl;
+				
+				if (i->type == SMALL) {
+					enemC.erase(i);
+				}
+							
+				else if (i->type == MEDIUM) {
+					Enemy dividedEnemy(i->cir.x - i->cir.r - 10, i->cir.y, SMALL);
+					Enemy dividedEnemy2(i->cir.x + i->cir.r + 10, i->cir.y, SMALL);
+					enemC.push_back(dividedEnemy);
+					enemC.push_back(dividedEnemy2);
+					enemC.erase(i);
+				}
+				else if (i->type == LARGE) {
+					Enemy dividedEnemy3(i->cir.x - i->cir.r - 10, i->cir.y, MEDIUM);
+					Enemy dividedEnemy4(i->cir.x + i->cir.r + 10, i->cir.y, MEDIUM);
+					enemC.push_back(dividedEnemy3);
+					enemC.push_back(dividedEnemy4);
+					enemC.erase(i);
+				}
+				
+			}
+		}
+	}
 };

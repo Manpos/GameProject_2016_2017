@@ -57,6 +57,7 @@ void GameScene::Update() {
 		ply->Update();
 		EnemySpawn(*enem);
 		EnemiesUpdate();
+		BulletColided();
 		for (auto i = bulletVector.begin(); i != bulletVector.end(); ++i) {
 			i->Update();
 		}
@@ -70,10 +71,14 @@ void GameScene::Update() {
 
 			}
 		}
+		for (auto i = bulletVector.begin(); i != bulletVector.end(); ++i) {
+			if (i->isAlive()) {
+				i->CheckColision(enemC);
+			}
+		}
 	}
 
 	
-
 	if (end) {
 		SM.rank = new RankScene;
 		SM.curr = RANK;

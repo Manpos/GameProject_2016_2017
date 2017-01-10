@@ -46,6 +46,7 @@ public:
 	SDL_Point ptPos;
 
 	position pos;
+	Circle cir;
 
 	GameObject(){}
 	void OnEntry();

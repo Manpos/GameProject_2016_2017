@@ -5,6 +5,7 @@
 #include "Renderer.hh"
 #include <math.h>
 
+
 class Bullet : public GameObject {
 
 public:
@@ -14,17 +15,24 @@ public:
 	void Draw();
 	bool isAlive();
 	void CheckBulletBorders();
-	void MakeUnitaryVector(float coordX, float coordY);
 
-	struct unitaryVector
-	{
-		float x, y;
-	};
+	template <typename T>
+	void CheckColision(std::vector<T> &enemies) {
+		float totalRadius, totalRadiusSquared, distancePoints, distanceBetweenPoints;
+		bool colision = false;
+		for (auto i = enemies.begin(); i != enemies.end(); ++i) {
+			totalRadius = cir.r + i->cir.r;
+			totalRadiusSquared = totalRadius * totalRadius;
+			distancePoints = pow((i->cir.x - cir.x), 2) + pow((i->cir.y - cir.y), 2);
+			if (distancePoints < totalRadiusSquared) {
+				std::cout << "Estas tocant loco" << std::endl;
+				i->colidedByBullet = true;
+			}
+		}
+	}
 
 private:
 
 	bool alive;
-	float x, y;
-	float xV, yV;
 
 };

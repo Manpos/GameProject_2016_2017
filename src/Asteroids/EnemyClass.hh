@@ -7,14 +7,16 @@ enum EnemyType { SMALL, MEDIUM, LARGE, S_OVNI, L_OVNI };
 
 class Enemy : public GameObject{
 private:
-	EnemyType type;
 	SDL_Rect area;
 	float rotateSpeed = 0.5, rotateBase = 0;
 	float rotValue;
 	int rotateSide;
-	int radi;
 	float difSpeed;
+	
 public:
+	bool colidedByBullet = false; // Checks if the enemy is hit by a bullet
+	EnemyType type;
+
 	Enemy(float difSpd) {
 		vel.x = 0;
 		vel.y = 0;
@@ -59,7 +61,7 @@ public:
 		default:
 			break;
 		}
-		//std::cout << "PosX:  " << pos.x << "	pos.y:  " << pos.y << std::endl;
+		cir.r = RND.spriteClips[id].w / 2;
 	}
 
 
@@ -68,8 +70,8 @@ public:
 		rotValue = rotateEnemy();
 		move();
 
-		ptPos.x = pos.x + (float)RND.spriteClips[id].w / 2.00;
-		ptPos.y = pos.y + (float)RND.spriteClips[id].h / 2.00;
+		cir.x = pos.x + (float)RND.spriteClips[id].w / 2.00;
+		cir.y = pos.y + (float)RND.spriteClips[id].h / 2.00;
 
 	}
 	
@@ -116,5 +118,6 @@ public:
 		}
 	}
 
-	// Dispara en funció del tipus, S_OVNI dispara al jugador. L_OVNI aleatoriament
+
+
 };
