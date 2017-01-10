@@ -3,6 +3,7 @@
 #include "GameObject.hh"
 #include <time.h>
 
+#define q 10000
 enum EnemyType { SMALL, MEDIUM, LARGE, S_OVNI, L_OVNI };
 
 class Enemy : public GameObject{
@@ -12,22 +13,25 @@ private:
 	float rotValue;
 	int rotateSide;
 	float difSpeed;
+	int *currentScore = nullptr;
 	
 public:
 	bool colidedByBullet = false; // Checks if the enemy is hit by a bullet
 	EnemyType type;
 
-	Enemy(float difSpd) {
+	Enemy(float difSpd, int* score) {
 		vel.x = 0;
 		vel.y = 0;
 		id = (SpriteID)(rand() % 8 + 2);
 		difSpeed = difSpd;
+		currentScore = score;
 	} 
-	Enemy(float x, float y, EnemyType ty, float difSpd) {
+	Enemy(float x, float y, EnemyType ty, float difSpd, int* score) {
 		pos.x = x;
 		pos.y = y;
 		type = ty;
 		difSpeed = difSpd;
+		currentScore = score;
 		switch (type)
 		{
 		case SMALL:
@@ -94,7 +98,7 @@ public:
 	void Update() {
 		CheckBorders(id);
 		rotValue = rotateEnemy();
-		move();
+		move(*currentScore);	
 
 		cir.x = pos.x + (float)RND.spriteClips[id].w / 2.00;
 		cir.y = pos.y + (float)RND.spriteClips[id].h / 2.00;
@@ -121,9 +125,9 @@ public:
 		else return (rotateBase += rotateSpeed);
 	}
 
-	void move() {
-		pos.x += vel.x;
-		pos.y += vel.y;
+	void move(int score) {		
+		pos.x += vel.x + (float)score / float(q);
+		pos.y += vel.y + (float)score / float(q);
 	}
 
 	//void ColidePlayer(float plyX, float plyY, float plyW, float plyH) {
@@ -147,28 +151,4 @@ public:
 		case 2: type = LARGE; break;
 		}
 	}
-
-	//std::vector<Enemy> Destroy() {
-	//	std::vector<Enemy> temp(0);
-	//	if (type == SMALL) {
-	//		return temp;
-	//	}
-
-	//	else if (type == MEDIUM) {
-	//		Enemy dividedEnemy(cir.x - cir.r - 10, cir.y, SMALL);
-	//		Enemy dividedEnemy2(cir.x + cir.r + 10, cir.y, SMALL);
-	//		temp.push_back(dividedEnemy);
-	//		temp.push_back(dividedEnemy2);
-	//		return temp;
-	//	}
-	//	else if (type == LARGE) {
-	//		Enemy dividedEnemy3(cir.x - cir.r - 10, cir.y, MEDIUM);
-	//		Enemy dividedEnemy4(cir.x + cir.r + 10, cir.y, MEDIUM);
-	//		temp.push_back(dividedEnemy3);
-	//		temp.push_back(dividedEnemy4);
-	//		return temp;
-	//	}
-	//}
-
-
 };

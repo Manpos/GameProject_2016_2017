@@ -2,7 +2,7 @@
 #include "SceneManager.hh"
 #include "InputManager.hh"
 
-#define MAX_BULLETS 10
+#define MAX_BULLETS 60
 
 void GameScene::OnEntry() {
 	RND.SetClips();
@@ -29,7 +29,7 @@ void GameScene::OnEntry() {
 	Bullet bulletTest;
 	AUX.inGame = true;
 	ply = new Player(difMode[LIFE]);
-	enem = new Enemy(difMode[ENEMIES_INIT_SPD]);
+	enem = new Enemy(difMode[ENEMIES_INIT_SPD], &score);
 	for (int i = 0; i < MAX_BULLETS; ++i) {
 		bulletVector.push_back(bulletTest);
 	}

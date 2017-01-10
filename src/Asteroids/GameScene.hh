@@ -122,8 +122,8 @@ public:
 				}
 							
 				else if (i->type == MEDIUM) {
-					Enemy dividedEnemy(i->cir.x - i->cir.r - 10, i->cir.y, SMALL, difMode[ENEMIES_INIT_SPD]);
-					Enemy dividedEnemy2(i->cir.x + i->cir.r + 10, i->cir.y, SMALL, difMode[ENEMIES_INIT_SPD]);
+					Enemy dividedEnemy(i->cir.x - i->cir.r - 10, i->cir.y, SMALL, difMode[ENEMIES_INIT_SPD], &score);
+					Enemy dividedEnemy2(i->cir.x + i->cir.r + 10, i->cir.y, SMALL, difMode[ENEMIES_INIT_SPD], &score);
 					enemC.erase(i);
 					enemC.push_back(dividedEnemy);
 					enemC.push_back(dividedEnemy2);
@@ -132,8 +132,8 @@ public:
 					break;
 				}
 				else if (i->type == LARGE) {
-					Enemy dividedEnemy3(i->cir.x - i->cir.r - 10, i->cir.y, MEDIUM, difMode[ENEMIES_INIT_SPD]);
-					Enemy dividedEnemy4(i->cir.x + i->cir.r + 10, i->cir.y, MEDIUM,difMode[ENEMIES_INIT_SPD]);
+					Enemy dividedEnemy3(i->cir.x - i->cir.r - 10, i->cir.y, MEDIUM, difMode[ENEMIES_INIT_SPD], &score);
+					Enemy dividedEnemy4(i->cir.x + i->cir.r + 10, i->cir.y, MEDIUM,difMode[ENEMIES_INIT_SPD], &score);
 					enemC.erase(i);
 					enemC.push_back(dividedEnemy3);
 					enemC.push_back(dividedEnemy4);

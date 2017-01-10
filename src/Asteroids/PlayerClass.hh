@@ -6,7 +6,7 @@
 #include <time.h>
 #include "transform.hh"
 
-#define SHOOT_TIME 0.5
+#define SHOOT_TIME 0.01
 
 class Player : public GameObject{
 
