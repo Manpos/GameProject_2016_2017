@@ -83,9 +83,6 @@
     <ClInclude Include="GameObject.hh">
       <Filter>Model</Filter>
     </ClInclude>
-    <ClInclude Include="RotationPoints.hh">
-      <Filter>Aux</Filter>
-    </ClInclude>
     <ClInclude Include="transform.hh">
       <Filter>Aux</Filter>
     </ClInclude>

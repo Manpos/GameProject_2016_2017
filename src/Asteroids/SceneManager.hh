@@ -40,14 +40,18 @@ public:
 					game->OnExit();
 					game = nullptr;
 				}
+				if (rank != nullptr) {
+					//rank->OnExit();
+					rank = nullptr;
+				}
 				menu->Update();
-				menu->Draw();
+				menu->Draw();				
 				break;
 			case SELECTION:
 				if (menu != nullptr) {
 					menu->OnExit();
 					menu = nullptr;
-				}				
+				}			
 				selection->Update();
 				selection->Draw();
 				break;
@@ -56,15 +60,14 @@ public:
 					selection->OnExit();
 					selection = nullptr;
 				}				
-				TM.Update([&] {
-					game->Update(); });
+				game->Update();
 				game->Draw();
 				break;
 			case RANK:
 				if (game != nullptr) {
 					rank->LoadRank(currDif);
 					rank->current.name = rank->PlayerName();
-					rank->current.scr = game->score;
+					rank->current.scr = game->ReturnScore();
 					rank->AddSetValue(rank->current);
 					rank->UpdateRank(rank->dif[currDif]);
 					rank->PrintRanking(150, 40, 150);
@@ -77,12 +80,11 @@ public:
 					menu->OnExit();
 					menu = nullptr;
 				}
-				rank->Update();
-				rank->Draw();
+				else {
+					rank->Update();
+				}
 				break;
 
-			default:
-				break;
 			}
 				
 	}

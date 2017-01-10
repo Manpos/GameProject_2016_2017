@@ -2,7 +2,7 @@
 #include "SceneManager.hh"
 #include "InputManager.hh"
 
-#define MAX_BULLETS 60
+#define MAX_BULLETS 10
 
 void GameScene::OnEntry() {
 	RND.SetClips();
@@ -39,12 +39,17 @@ void GameScene::OnEntry() {
 void GameScene::OnExit() {
 	delete enem;
 	delete ply;
+	TM.Update([&] {	DummyFunc(); });
 	AUX.paused = false;
 	AUX.inGame = false;
 	delete this;
 }
 
 void GameScene::Update() {
+	TM.Update([&] {	GameUpdate(); });
+}
+
+void GameScene::GameUpdate() {
 	IM.Update();
 
 	if (!ply->alive) { end = true; }
@@ -56,15 +61,19 @@ void GameScene::Update() {
 	}
 
 	else {
+
 		ply->Update();
 		EnemySpawn(*enem);
 		EnemiesUpdate();
 		BulletColided();
-		
+		if (!ply->invulnerable) {
+			ply->CheckEnemiesColision(enemC);
+		}		
+
 		if (ply->Shoot()) {
 			for (auto i = bulletVector.begin(); i != bulletVector.end(); ++i) {
 				if (i->isAlive() == false) {
-					i->Shoot(ply->ptPos.x, ply->ptPos.y, ply->angle_deg);
+					i->Shoot(ply->cir.x, ply->cir.y, ply->angle_deg);
 					break;
 				}
 
@@ -81,7 +90,9 @@ void GameScene::Update() {
 
 	
 	if (end) {
-		SM.rank = new RankScene;
+		if (SM.rank == nullptr) {
+			SM.rank = new RankScene;
+		}
 		SM.curr = RANK;
 	}
 
@@ -105,4 +116,10 @@ void GameScene::Draw() {
 	}
 
 	RND.CleanRenderer();
+}
+
+int GameScene::EnemySpawnNumber() {
+	int totalEnemies;
+	totalEnemies = difMode[INI_ENEMIES] + difMode[INCR_ENEMIES_NUM] * level;
+	return totalEnemies;
 }

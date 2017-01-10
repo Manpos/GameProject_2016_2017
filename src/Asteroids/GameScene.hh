@@ -34,8 +34,9 @@ private:
 	EnemySpawnPos spawn;
 	std::string sc;
 	std::vector<Enemy>enemC;
-	Enemy* enem;
-	Player *ply;
+	Enemy* enem = nullptr;
+	Player *ply = nullptr;
+	int score, prevScore;
 
 public:
 	std::vector<Bullet> bulletVector;
@@ -43,12 +44,14 @@ public:
 	void OnExit();
 	void Update();
 	void Draw();
+	void DummyFunc() {};
+	void GameUpdate();
 	
 	//SCORE
 	TTF_Font *font;
 	SDL_Texture *lifeIcon;
 	RTexture res;
-	int score, prevScore;
+	
 	int currEnemyNum;
 
 	GameScene(std::vector<float> tmp) : difMode(tmp) {
@@ -59,11 +62,7 @@ public:
 		OnEntry();
 	}
 
-	int EnemySpawnNumber() {
-		int totalEnemies;
-		totalEnemies = difMode[INI_ENEMIES] + difMode[INCR_ENEMIES_NUM]*level;
-		return totalEnemies;
-	}
+	int EnemySpawnNumber();
 
 	void EnemySpawn(Enemy obj) {
 		if (currEnemyNum <= 0) {
@@ -71,7 +70,7 @@ public:
 				++level;
 				for (int i = 0; i < EnemySpawnNumber(); ++i) {
 					enemC.push_back(obj);
-					enemC[i].Start();
+					enemC[i].OnEntry();
 					currEnemyNum++;
 				}
 			}
@@ -112,8 +111,7 @@ public:
 	void BulletColided() {
 		for (auto i = enemC.begin(); i != enemC.end(); ++i) { // Iterate through the vector of enemies
 			if (i->colidedByBullet) { // Checks if the enemy is hited
-				std::cout << "MEC" << std::endl;
-				
+								
 				if (i->type == SMALL) {
 					enemC.erase(i);
 					--currEnemyNum;
@@ -122,8 +120,8 @@ public:
 				}
 							
 				else if (i->type == MEDIUM) {
-					Enemy dividedEnemy(i->cir.x - i->cir.r - 10, i->cir.y, SMALL, difMode[ENEMIES_INIT_SPD], &score);
-					Enemy dividedEnemy2(i->cir.x + i->cir.r + 10, i->cir.y, SMALL, difMode[ENEMIES_INIT_SPD], &score);
+					Enemy dividedEnemy(i->cir.x - rand() % 5, i->cir.y, SMALL, difMode[ENEMIES_INIT_SPD], i->GetVelocity().x, i->GetVelocity().y, &score);
+					Enemy dividedEnemy2(i->cir.x + rand() % 5, i->cir.y, SMALL, difMode[ENEMIES_INIT_SPD], -i->GetVelocity().x, -i->GetVelocity().y, &score);
 					enemC.erase(i);
 					enemC.push_back(dividedEnemy);
 					enemC.push_back(dividedEnemy2);
@@ -132,8 +130,8 @@ public:
 					break;
 				}
 				else if (i->type == LARGE) {
-					Enemy dividedEnemy3(i->cir.x - i->cir.r - 10, i->cir.y, MEDIUM, difMode[ENEMIES_INIT_SPD], &score);
-					Enemy dividedEnemy4(i->cir.x + i->cir.r + 10, i->cir.y, MEDIUM,difMode[ENEMIES_INIT_SPD], &score);
+					Enemy dividedEnemy3(i->cir.x - rand() % 10 , i->cir.y, MEDIUM, difMode[ENEMIES_INIT_SPD], i->GetVelocity().x, i->GetVelocity().y, &score);
+					Enemy dividedEnemy4(i->cir.x + rand() % 10, i->cir.y, MEDIUM,difMode[ENEMIES_INIT_SPD], -i->GetVelocity().x, -i->GetVelocity().y, &score);
 					enemC.erase(i);
 					enemC.push_back(dividedEnemy3);
 					enemC.push_back(dividedEnemy4);
@@ -144,5 +142,8 @@ public:
 				
 			}
 		}
+	}
+	int ReturnScore() {
+		return score;
 	}
 };

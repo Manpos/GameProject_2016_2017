@@ -9,13 +9,14 @@ enum EnemyType { SMALL, MEDIUM, LARGE, S_OVNI, L_OVNI };
 class Enemy : public GameObject{
 private:
 	SDL_Rect area;
-	float rotateSpeed = 0.5, rotateBase = 0;
+	float rotateSpeed = 50, rotateBase = 0;
 	float rotValue;
 	int rotateSide;
 	float difSpeed;
 	int *currentScore = nullptr;
-	
+	int dirX, dirY;
 public:
+
 	bool colidedByBullet = false; // Checks if the enemy is hit by a bullet
 	EnemyType type;
 
@@ -26,7 +27,8 @@ public:
 		difSpeed = difSpd;
 		currentScore = score;
 	} 
-	Enemy(float x, float y, EnemyType ty, float difSpd, int* score) {
+
+	Enemy(float x, float y, EnemyType ty, float difSpd, float velX, float velY, int* score) {
 		pos.x = x;
 		pos.y = y;
 		type = ty;
@@ -36,22 +38,13 @@ public:
 		{
 		case SMALL:
 			id = (SpriteID)(rand() % 2 + 4);
-			vel.x = 1.5 * difSpeed;
-			vel.y = 1.5 * difSpeed;
+			vel.x = velX + velX;
+			vel.y = velY + velY;
 			break;
 		case MEDIUM:
 			id = (SpriteID)(rand() % 2 + 2);
-			vel.x = (1)*difSpeed;
-			vel.y = (1)*difSpeed;
-			break;
-		case LARGE:
-			id = (SpriteID)(rand() % 3 + 6);
-			vel.x = (0.5)*difSpeed;
-			vel.y = (0.5)*difSpeed;
-			break;
-		case S_OVNI:
-			break;
-		case L_OVNI:
+			vel.x = velX + velX;
+			vel.y = velY + velY;
 			break;
 		default:
 			break;
@@ -59,10 +52,13 @@ public:
 		cir.r = RND.spriteClips[id].w / 2;
 	};
 
-	void Start() {
+	void OnEntry() {
 
-		pos.x = RandomPos();
-		pos.y = RandomPos();
+		pos.x = RandomPos().x;
+		pos.y = RandomPos().y;
+
+		dirX = RandomVelocityDir();
+		dirY = RandomVelocityDir();
 
 		RandomType();
 
@@ -70,18 +66,18 @@ public:
 		{
 		case SMALL:
 			id = (SpriteID)(rand() % 2 + 4);
-			vel.x = 1.5 * difSpeed;
-			vel.y = 1.5 * difSpeed;
+			vel.x = (((rand() % 40) + 150) * difSpeed) * dirX;
+			vel.y = (((rand() % 40) + 150) * difSpeed) * dirY;
 			break;
 		case MEDIUM:
 			id = (SpriteID)(rand() % 2 + 2);
-			vel.x = (1)*difSpeed;
-			vel.y = (1)*difSpeed;
+			vel.x = (((rand() % 30) + 100) * difSpeed) * dirX;
+			vel.y = (((rand() % 30) + 100) * difSpeed) * dirY;
 			break;
 		case LARGE:
 			id = (SpriteID)(rand() % 3 + 6);
-			vel.x = (0.5)*difSpeed;
-			vel.y = (0.5)*difSpeed;
+			vel.x = (((rand() % 20) + 50) * difSpeed) * dirX;
+			vel.y = (((rand() % 20) + 50) * difSpeed) * dirY;
 			break;
 		case S_OVNI:
 			break;
@@ -96,6 +92,7 @@ public:
 
 
 	void Update() {
+
 		CheckBorders(id);
 		rotValue = rotateEnemy();
 		move(*currentScore);	
@@ -103,18 +100,19 @@ public:
 		cir.x = pos.x + (float)RND.spriteClips[id].w / 2.00;
 		cir.y = pos.y + (float)RND.spriteClips[id].h / 2.00;
 
-		if (colidedByBullet) {
-
-		}
-
-	}
-	
-	float RandomPos() {
-		return (rand() % 600 + 10);
 	}
 
 	void Draw() {
 		RND.PrintText(pos.x, pos.y, spriteSheetText, &RND.spriteClips[id], rotValue);
+	}
+	
+	Position RandomPos() {
+		Position tmp;
+		tmp.x = rand() % AUX.w;
+		tmp.y = rand() % AUX.h;
+		tmp.x -= AUX.w;
+		tmp.y -= AUX.h;
+		return tmp;
 	}
 
 	float rotateEnemy() {
@@ -122,24 +120,24 @@ public:
 			rotateBase = 0;
 			return rotateBase;
 		}
-		else return (rotateBase += rotateSpeed);
+		else return (rotateBase += rotateSpeed*TM.GetDeltaTime());
 	}
 
 	void move(int score) {		
-		pos.x += vel.x + (float)score / float(q);
-		pos.y += vel.y + (float)score / float(q);
+		pos.x += ((vel.x + ((float)score / float(q)*dirX)))*TM.GetDeltaTime();
+		pos.y += ((vel.y + ((float)score / float(q)*dirY)))*TM.GetDeltaTime();
 	}
 
-	//void ColidePlayer(float plyX, float plyY, float plyW, float plyH) {
-	//	if (pos.x)
-	//}
+	velocity GetVelocity() {
+		return vel;
+	}
 
-	void defineRotationSize() {
-		int temp = rand() % 10 + 1;
-		if (temp < 5) {
-			rotateSide = -1;
+	int RandomVelocityDir() {
+		int tmp = rand() % 2;
+		if (tmp == 1) {
+			return 1;
 		}
-		else rotateSide = 1;
+		else return -1;
 	}
 
 	void RandomType() {

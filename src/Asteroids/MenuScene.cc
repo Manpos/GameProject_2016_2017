@@ -6,7 +6,15 @@
 //Content of the class MenuScene.hh
 void MenuScene::OnEntry() {
 
-	////Font load and positioning
+	rankSelection = false;
+
+	//Font load and positioning
+	title = RND.LPFont(path, 60, "ASTEROIDS", 255, 255, 255);
+	transform.position(title.rect, 0, -AUX.h/4, CENTERED);
+
+	selectDif = RND.LPFont(path, 40, "SELECT DIFFICULTY", 255, 255, 255);
+	transform.position(selectDif.rect, 0, -AUX.h / 4, CENTERED);
+
 	start = RND.LPFont(path, 24, "START", 255, 255, 255);
 	transform.position(start.rect, 0, -50, CENTERED);
 
@@ -35,6 +43,7 @@ void MenuScene::OnExit() {
 void MenuScene::Update() {
 	IM.Update();							//Call to the update of the input manager
 
+	//Displays three options to show the Ranking, each option shows a different ranking
 	if (rankSelection) {
 		if (IM.ButtonPress(easy.rect)) {
 			SM.currDif = D_EASY;
@@ -56,44 +65,39 @@ void MenuScene::Update() {
 	else {
 		//Conditions to determinate the zone where the input of the user should make effect
 		if (IM.ButtonPress(start.rect)) {
-			std::cout << "HOLOS" << std::endl;
-
-			//Change the condition of the main
+			//Change the condition of the SceneManager
 			SM.selection = new SelectionScene;
 			SM.curr = SELECTION;
-
-
 		}
 
 		else if (IM.ButtonPress(exit.rect)) {
-			std::cout << "ADEU" << std::endl;
 			AUX.gameRunning = false;				//This ends the main loop and ends the program
 		}
 
 		else if (IM.ButtonPress(rank.rect)) {
-			rankSelection = true;
+			rankSelection = true;					//Enters another menu to show the Ranking
 		}
 		IM.ResetButton();
+		
 	}
 	
-
+	IM.ResetButton();
 }
 
 void MenuScene::Draw() {
-	//The textures are drown and the Renderer is cleared
+	//The textures are drawed and the Renderer is cleared
 	if (rankSelection) {
+		RND.PrintText(selectDif.rect, selectDif.text);
 		RND.PrintText(easy.rect, easy.text);
 		RND.PrintText(medium.rect, medium.text);
 		RND.PrintText(hard.rect, hard.text);
 	}
 	else {
+		RND.PrintText(title.rect, title.text);
 		RND.PrintText(start.rect, start.text);
 		RND.PrintText(exit.rect, exit.text);
 		RND.PrintText(rank.rect, rank.text);
 	}
-	
 	RND.CleanRenderer();
-	
-	
 
 }

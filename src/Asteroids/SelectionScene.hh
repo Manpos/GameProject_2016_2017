@@ -12,7 +12,7 @@
 class SelectionScene : public Scene {
 private:
 	const char *path = "../../res/ariblk.ttf";
-	RTexture easyT, mediumT, hardT;
+	RTexture easyT, mediumT, hardT, selectDif;
 
 	rapidxml::xml_document <> doc;
 	rapidxml::xml_node<> *root;

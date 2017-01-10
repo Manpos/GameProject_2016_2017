@@ -7,6 +7,9 @@
 
 void SelectionScene::OnEntry() {
 
+	selectDif = RND.LPFont(path, 40, "SELECT DIFFICULTY", 255, 255, 255);
+	transform.position(selectDif.rect, 0, -AUX.h / 4, CENTERED);
+
 	easyT = RND.LPFont(path, 21, "EASY", 255, 255, 255);
 	transform.position(easyT.rect, 0, -50, CENTERED);
 
@@ -69,6 +72,7 @@ void SelectionScene::Update() {
 }
 
 void SelectionScene::Draw() {
+	RND.PrintText(selectDif.rect, selectDif.text);
 	RND.PrintText(easyT.rect, easyT.text);
 	RND.PrintText(mediumT.rect, mediumT.text);
 	RND.PrintText(hardT.rect, hardT.text);

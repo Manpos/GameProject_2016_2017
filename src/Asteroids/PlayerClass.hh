@@ -6,7 +6,7 @@
 #include <time.h>
 #include "transform.hh"
 
-#define SHOOT_TIME 0.01
+#define SHOOT_TIME 0.25
 
 class Player : public GameObject{
 
@@ -20,50 +20,38 @@ private:
 	float rotateSpeed = 5;
 	float speed = 5;
 
-
-
 public:
 
 	int life;
 	bool dead = false;
 	float respawnTime = 0.0;
+	bool invulnerable = false;
+	float invTime;
 
 	float delta_y;
 	float delta_x;
 	double angle_deg = 0;
 	bool alive = true;
 
-	void OnEntry() {
-
-	}
 	void Update() {
+		if (dead) {	
+		Respawn(3); 
+		}
 
-		//-------------TEST-------------
-		if (IM.TestKey()) {
-			dead = true;
-		}
-		//-----------------------------
-		if (dead) {
-			Respawn();
-		}
 		else {
+			invulnerable = Invulnerability();
 			Move();
 			if (!IM.ReturnMouseBlock()) {
 				Rotate();
 			}
 			rotValue = 90 + angle_deg;
 			CheckBorders(id);
-		}		
+		}				
 
-		
-
-		if (life <= 0) {
-			alive = false;
-		}
+		if (life <= 0) { alive = false;	}
 
 		cir.x = pos.x + (float)RND.spriteClips[PLAYER].w / 2.00;
 		cir.y = pos.y + (float)RND.spriteClips[PLAYER].h / 2.00;
-
 
 	};
 
@@ -71,16 +59,15 @@ public:
 		if (!dead) {
 			RND.PrintText(pos.x, pos.y, spriteSheetText, &RND.spriteClips[PLAYER], rotValue);
 		}		
-		//std::cout << "Vel X: " << vel.x << "	Vel Y: " << vel.y << std::endl;
 	}
+
 	Player(int lf) {
-		pos.x = 400;
-		pos.y = 400;
+		pos.x = AUX.w/2;
+		pos.y = AUX.h/2;
 		vel.x = 0;
 		vel.y = 0;
 		life = lf;
 		cir.r = RND.spriteClips[PLAYER].w / 2;
-
 		id = PLAYER;
 	}
 
@@ -90,6 +77,7 @@ public:
 
 			vel.y += sin(AUX.degreesToRadians(angle_deg)) * speed;
 			vel.x += cos(AUX.degreesToRadians(angle_deg)) * speed;
+
 			if (vel.x >= 300) {
 				vel.x = 300;
 			}
@@ -103,6 +91,7 @@ public:
 				vel.y = -300;
 			}
 		}
+
 		if (IM.noMove) {
 			vel.x *= friction;
 			vel.y *= friction;
@@ -124,7 +113,6 @@ public:
 		if (IM.IsShooting() && !dead) {
 			if (bulletCounter < 0) {
 				bulletCounter = SHOOT_TIME;
-				//std::cout << "SHOT" << std::endl;
 				return true;
 			}
 		}
@@ -142,24 +130,32 @@ public:
 	return angle_deg;
 	}
 
-	void Respawn() {
-		
+	bool Invulnerability() {
+		if (invTime > 0) {
+			invTime -= TM.GetDeltaTime();
+			return true;
+		}
+		else return false;
+	}
+
+	void Respawn(float iTime) {
 		if (life > 0 && respawnTime < 0) {
 			--life;
 			this->pos.x = AUX.w / 2;
 			this->pos.y = AUX.h / 2;
+			this->vel.x = 0;
+			this->vel.y = 0;
+			invTime = iTime;
 			dead = false;
 		}
 
 		if (respawnTime <= 0) {
-			respawnTime = 1;
+			respawnTime = 2;
 		}
 		
 		if (respawnTime > 0) {
 			respawnTime -= TM.GetDeltaTime();
 		}
-
-		std::cout << respawnTime << std::endl;
 	}
 
 	template <typename T>

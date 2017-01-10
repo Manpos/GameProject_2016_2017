@@ -1,13 +1,16 @@
 #include "RankScene.hh"
 #include <string>
 #include <iostream>
-#include <fstream>
 #include "SceneManager.hh"
 #include "transform.hh"
 
  //Definition of the methods of RankScene class
 void RankScene::OnEntry() {
-	//Creation and positioning of the button
+	//Creation and positioning of the button and title
+
+	title = RND.LPFont(path, 40, "RANKING", 255, 255, 255);
+	transform.position(title.rect, 0, -300, CENTERED);
+
 	button = RND.LPFont(path, 30, "MAIN MENU", 255, 255, 255);
 	transform.position(button.rect, 0, 300, CENTERED);
 }
@@ -18,15 +21,18 @@ void RankScene::OnExit() {
 
 void RankScene::Update() {
 	IM.Update();
+
 	if (IM.ButtonPress(button.rect)){
 		SM.menu = new MenuScene;
 		SM.curr = MENU;
 	}
 
+	IM.ResetButton();
 }
 
 void RankScene::Draw() {
-
+	RND.PrintText(button.rect, button.text);
+	RND.CleanRenderer();
 }
 
 //Loads a binary file depending on the difficultty, if it doesn't exists it's created
@@ -38,7 +44,7 @@ void RankScene::LoadRank(difficulties difficult) {
 	if (file == nullptr) {
 		std::cout << "Unable to open file" << "SDL Error: " << SDL_GetError() << std::endl;
 		file = SDL_RWFromFile(path, "w+b");
-
+		//Creates the file
 		if (file != nullptr) {
 			std::cout << "File created" << std::endl;
 
@@ -49,6 +55,8 @@ void RankScene::LoadRank(difficulties difficult) {
 				set.insert(data[i]);
 			}
 		}
+		//Close file
+		SDL_RWclose(file);
 	}
 
 	else {
@@ -57,13 +65,12 @@ void RankScene::LoadRank(difficulties difficult) {
 		for (int i = 0; i < RANK_LEN; ++i) {
 			SDL_RWread(file, &data[i], sizeof(PlayerData), 1, RANK_LEN);
 			set.insert(data[i]);
-			//std::cout << set.size() << " " << data[i].name << " " << data[i].scr << std::endl;
-
+			
 		}
+		//Close file
+		SDL_RWclose(file);
 	}
 
-	//Close file
-	SDL_RWclose(file);
 }
 
 void RankScene::UpdateRank(char * path) {
@@ -164,5 +171,6 @@ void RankScene::PrintRanking(int nameX, int sep, int initial) {
 
 	}
 	RND.PrintText(button.rect, button.text);
+	RND.PrintText(title.rect, title.text);
 	RND.CleanRenderer();
 }
