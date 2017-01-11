@@ -16,6 +16,9 @@ protected:
 		float x, y, r;
 	};
 
+	SpriteID id;
+	velocity vel;
+
 	void CheckBorders(SpriteID sId) {
 		if (pos.x + RND.spriteClips[sId].w < 0) {
 			pos.x = AUX.w;
@@ -35,15 +38,11 @@ protected:
 
 	}
 
-	SpriteID id;
-	velocity vel;
-
 public:
 
 	struct position {
 		float x, y;
 	};
-	SDL_Point ptPos;
 
 	position pos;
 	Circle cir;

@@ -8,13 +8,13 @@ enum EnemyType { SMALL, MEDIUM, LARGE, S_OVNI, L_OVNI };
 
 class Enemy : public GameObject{
 private:
-	SDL_Rect area;
-	float rotateSpeed = 50, rotateBase = 0;
+
+	float rotateSpeed = 1.5, rotateBase = 0;
 	float rotValue;
-	int rotateSide;
 	float difSpeed;
 	int *currentScore = nullptr;
 	int dirX, dirY;
+
 public:
 
 	bool colidedByBullet = false; // Checks if the enemy is hit by a bullet
@@ -38,13 +38,13 @@ public:
 		{
 		case SMALL:
 			id = (SpriteID)(rand() % 2 + 4);
-			vel.x = velX + velX;
-			vel.y = velY + velY;
+			vel.x = velX + 1;
+			vel.y = velY + 1;
 			break;
 		case MEDIUM:
 			id = (SpriteID)(rand() % 2 + 2);
-			vel.x = velX + velX;
-			vel.y = velY + velY;
+			vel.x = velX + 0.5;
+			vel.y = velY + 0.5;
 			break;
 		default:
 			break;
@@ -66,18 +66,18 @@ public:
 		{
 		case SMALL:
 			id = (SpriteID)(rand() % 2 + 4);
-			vel.x = (((rand() % 40) + 150) * difSpeed) * dirX;
-			vel.y = (((rand() % 40) + 150) * difSpeed) * dirY;
-			break;
+			vel.x = ((1.5) * difSpeed) * dirX + rand() % 2;
+			vel.y = ((1.5) * difSpeed) * dirY;
+				break;
 		case MEDIUM:
 			id = (SpriteID)(rand() % 2 + 2);
-			vel.x = (((rand() % 30) + 100) * difSpeed) * dirX;
-			vel.y = (((rand() % 30) + 100) * difSpeed) * dirY;
+			vel.x = ((1) * difSpeed) * dirX + rand() % 5;
+			vel.y = ((1) * difSpeed) * dirY;
 			break;
 		case LARGE:
 			id = (SpriteID)(rand() % 3 + 6);
-			vel.x = (((rand() % 20) + 50) * difSpeed) * dirX;
-			vel.y = (((rand() % 20) + 50) * difSpeed) * dirY;
+			vel.x = ((0.5) * difSpeed) * dirX + rand() % 5;
+			vel.y = ((0.5) * difSpeed) * dirY;
 			break;
 		case S_OVNI:
 			break;
@@ -104,28 +104,34 @@ public:
 
 	void Draw() {
 		RND.PrintText(pos.x, pos.y, spriteSheetText, &RND.spriteClips[id], rotValue);
+		//std::cout << "Dir X: " << vel.x << "		 Dir Y: " << vel.y << std::endl;
+
 	}
 	
 	Position RandomPos() {
 		Position tmp;
 		tmp.x = rand() % AUX.w;
 		tmp.y = rand() % AUX.h;
-		tmp.x -= AUX.w;
-		tmp.y -= AUX.h;
+		if (tmp.x <= AUX.w / 2) {
+			tmp.x -= AUX.w;
+		}
+		else { tmp.x += AUX.w; }
+		//tmp.x -= AUX.w;
+		//tmp.y -= AUX.h;
 		return tmp;
-	}
+		}
 
 	float rotateEnemy() {
 		if (rotateBase >= 360) {
 			rotateBase = 0;
 			return rotateBase;
 		}
-		else return (rotateBase += rotateSpeed*TM.GetDeltaTime());
+		else return (rotateBase += rotateSpeed);
 	}
 
 	void move(int score) {		
-		pos.x += ((vel.x + ((float)score / float(q)*dirX)))*TM.GetDeltaTime();
-		pos.y += ((vel.y + ((float)score / float(q)*dirY)))*TM.GetDeltaTime();
+		pos.x += ((vel.x + ((float)score / float(q)*dirX)));
+		pos.y += ((vel.y + ((float)score / float(q)*dirY)));
 	}
 
 	velocity GetVelocity() {

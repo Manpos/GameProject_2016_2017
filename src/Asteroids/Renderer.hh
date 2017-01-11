@@ -12,6 +12,7 @@ enum RGBA {
 	R = 0, G = 0, B = 0, A = 0
 };
 
+//IDs for the sprites
 enum SpriteID {
 	PLAYER, BULLET, AST_MED_1, AST_MED_2,
 	AST_LIL_1, AST_LIL_2, AST_LAR_1, AST_LAR_2, AST_LAR_3, AST_LIL_3, OVNI
@@ -22,17 +23,12 @@ struct RTexture {
 
 	SDL_Rect rect;
 	SDL_Texture *text = nullptr;
-	 //(AUX.w / 2) - (rect.w / 2)
 
 };
 
 class Renderer {
 private:
 	SDL_Renderer *renderer = NULL;
-
-	struct ImgSize{
-		int w, h;
-	};
 
 public:
 
@@ -43,6 +39,7 @@ public:
 		return a;
 	}
 
+	//Gives a window to the renderer and creates the renderer
 	void SetWindow(SDL_Window* w) {
 		renderer = SDL_CreateRenderer(w, -1, SDL_RENDERER_ACCELERATED | SDL_RENDERER_PRESENTVSYNC);
 		SDL_SetRenderDrawColor(renderer, R, G, B, A);
@@ -52,12 +49,14 @@ public:
 		return renderer;
 	}
 
+	//Makes a texture from a surface
 	SDL_Texture* SurfToText(SDL_Surface *surface) {
 		auto msgText = SDL_CreateTextureFromSurface(renderer, surface);
 		SDL_FreeSurface(surface);
 		return msgText;
 	}
 
+	//Renders a texture 
 	void PrintText(SDL_Rect msgRect, SDL_Texture *msgText) {
 		SDL_RenderCopyEx(renderer, msgText, nullptr, &msgRect, 0, NULL, SDL_FLIP_NONE);
 	}
@@ -82,13 +81,6 @@ public:
 		return tmp;
 	}
 
-	//Returns the size of an Image if it's a SDL_Surface
-	ImgSize getImageSize(SDL_Surface *img) {
-		ImgSize tmp;
-		tmp.w = img->w;
-		tmp.h = img->h;
-		return tmp;
-	}
 	//Returns a RTxture with a solid color depending on the RGBA values introduced
 	RTexture CreateSolid(Uint32 R, Uint32 G, Uint32 B, Uint32 A, SDL_Rect *rect = nullptr) {
 		SDL_Surface *surf = SDL_CreateRGBSurface(0, AUX.w, AUX.h, 32, 0, 0, 0, 0);
@@ -122,6 +114,7 @@ public:
 		spriteClips[AST_LIL_3] = { 166, 104, 21, 19 };
 		spriteClips[OVNI] = { 196, 69, 53, 30 };
 	}
+
 	//Loads a font from a path and gives it a size
 	TTF_Font *LoadFont(const char* path, int size) {
 		TTF_Font *font = nullptr;
@@ -144,6 +137,7 @@ public:
 		return res;
 	}
 
+	//Creates a texture from a font
 	RTexture PrepareFont(TTF_Font *font, const char* txt, Uint8 R, Uint8 G, Uint8 B) {
 		RTexture res;
 		SDL_Color textColor = { R, G, B };

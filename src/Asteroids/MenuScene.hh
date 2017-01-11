@@ -4,7 +4,7 @@
 //Class which Inherits from Scene.hh
 class MenuScene : public Scene {
 private:
-	//FONTS
+	//Displayed text variables
 	const char* path = "../../res/ariblk.ttf";
 	bool rankSelection;
 	RTexture start, rank, exit, easy, medium, hard, title, selectDif;

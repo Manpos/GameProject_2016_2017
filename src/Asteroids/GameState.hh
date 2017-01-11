@@ -18,8 +18,10 @@ void GameState(int win_w, int win_h) {
 	SM.Start();
 
 	while (AUX.gameRunning) {
-		SM.Update();
+		TM.Update([&] {	SM.Update(); });
 	}
+
+	
 
 	TTF_Quit();
 	SDL_Quit();

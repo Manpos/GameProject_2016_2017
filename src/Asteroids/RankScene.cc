@@ -16,7 +16,7 @@ void RankScene::OnEntry() {
 }
 
 void RankScene::OnExit() {
-	delete this;							//Deletes this object when called
+						
 }
 
 void RankScene::Update() {
@@ -42,12 +42,9 @@ void RankScene::LoadRank(difficulties difficult) {
 	SDL_RWops* file = SDL_RWFromFile(path, "r+b");	//Opens the file to read
 	//Check if the files exists
 	if (file == nullptr) {
-		std::cout << "Unable to open file" << "SDL Error: " << SDL_GetError() << std::endl;
 		file = SDL_RWFromFile(path, "w+b");
 		//Creates the file
 		if (file != nullptr) {
-			std::cout << "File created" << std::endl;
-
 			//Initialize data
 			for (int i = 0; i < RANK_LEN; ++i) {
 				data[i] = { 0, " "};
@@ -61,7 +58,6 @@ void RankScene::LoadRank(difficulties difficult) {
 
 	else {
 		//Load data
-		std::cout << "Loading data..." << std::endl;
 		for (int i = 0; i < RANK_LEN; ++i) {
 			SDL_RWread(file, &data[i], sizeof(PlayerData), 1, RANK_LEN);
 			set.insert(data[i]);
@@ -73,17 +69,18 @@ void RankScene::LoadRank(difficulties difficult) {
 
 }
 
+//Udates Ranking data
 void RankScene::UpdateRank(char * path) {
 	SDL_RWops* file = SDL_RWFromFile(path , "w+b");
 	auto it = set.begin();
 	for (int i = 0; i < RANK_LEN; ++i)	{
 		data[i] = *(it); ++it;
 		SDL_RWwrite(file, &data[i], sizeof(PlayerData), 1);
-		std::cout << 10-i << " " << data[i].name << " " << data[i].scr << std::endl;
 	}
 	SDL_RWclose(file);
 }
 
+//Adds a value to the multiset changing the last one if its full
 void RankScene::AddSetValue(PlayerData ply) {
 	if (set.size() >= RANK_LEN) {
 		set.erase(set.begin());
@@ -92,6 +89,7 @@ void RankScene::AddSetValue(PlayerData ply) {
 
 }
 
+//Listens to user text input and shows it on screen
 std::string RankScene::PlayerName() {
 
 	TTF_Font *font = RND.LoadFont("../../res/ariblk.ttf", 15);
@@ -147,6 +145,7 @@ std::string RankScene::PlayerName() {
 	return text;
 }
 
+//Prints the current content of the ranking
 void RankScene::PrintRanking(int nameX, int sep, int initial) {
 	TTF_Font *font = RND.LoadFont(path, 25);
 	std::vector<SDL_Surface*> surf(RANK_LEN);

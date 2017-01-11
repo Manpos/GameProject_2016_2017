@@ -77,9 +77,6 @@
     <ClInclude Include="TimeManager.hh">
       <Filter>Controller</Filter>
     </ClInclude>
-    <ClInclude Include="LTexture.hh">
-      <Filter>View</Filter>
-    </ClInclude>
     <ClInclude Include="GameObject.hh">
       <Filter>Model</Filter>
     </ClInclude>

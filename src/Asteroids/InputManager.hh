@@ -42,21 +42,19 @@ public:
 		resetButton = false;
 
 	}
-	//This function checks at every moment if there is any input of the mouse
+	//This function checks at every moment if there is any input of the mouse or the keyboard
 	void Update() {
 		while (SDL_PollEvent(&event)) {
 			switch (event.type) {
 			case SDL_QUIT: AUX.gameRunning = false; break;	//This event happens when the cross of the window is cilcked
 			case SDL_MOUSEBUTTONDOWN: 
 				buttonPressed = true;   
-				std::cout << "1"; 
 				if (AUX.gameRunning) {
 					shooting = true;
 				}
 				break;
 			case SDL_MOUSEBUTTONUP: 
 				resetButton = true; 
-				std::cout << "0"; 
 				if (AUX.gameRunning) {
 					shooting = false;
 				}
@@ -85,14 +83,12 @@ public:
 				if (event.key.keysym.sym == SDLK_SPACE) {
 					shooting = true;
 				}
-				if (event.key.keysym.sym == SDLK_r) {
-					test = true;
-				}
 
 				break;
 			case SDL_KEYUP: 
 				if (event.key.keysym.sym == SDLK_w) {
 					noMove = true;
+					moveUp = false;
 				}
 				if (event.key.keysym.sym == SDLK_a) {
 					moveLeft = false;
@@ -100,12 +96,7 @@ public:
 				if (event.key.keysym.sym == SDLK_d) {
 					moveRight = false;
 				}
-				if (event.key.keysym.sym == SDLK_w) {
-					moveUp = false;
-				}
-				if (event.key.keysym.sym == SDLK_r) {
-					test = false;
-				}
+
 				shooting = false; 
 				break;
 			}

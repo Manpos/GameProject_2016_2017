@@ -3,6 +3,7 @@
 #include "AuxLib.hh"
 #include <set>
 
+//Max length of the ranking
 #define RANK_LEN 10
 
 //Struct to store the score and the name of the player

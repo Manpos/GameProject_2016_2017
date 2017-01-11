@@ -25,7 +25,6 @@ public:
 			totalRadiusSquared = totalRadius * totalRadius;
 			distancePoints = pow((i->cir.x - cir.x), 2) + pow((i->cir.y - cir.y), 2);
 			if (distancePoints < totalRadiusSquared) {
-				std::cout << "Estas tocant loco" << std::endl;
 				i->colidedByBullet = true;
 				alive = false;
 			}
