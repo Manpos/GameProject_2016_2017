@@ -3,24 +3,24 @@
 #include "GameObject.hh"
 #include <time.h>
 
-#define q 10000
-enum EnemyType { SMALL, MEDIUM, LARGE, S_OVNI, L_OVNI };
+#define q 10000													// Value used to modify the speed in function of the score
+enum EnemyType { SMALL, MEDIUM, LARGE, S_OVNI, L_OVNI };		// Enum of type of enemy
 
 class Enemy : public GameObject{
 private:
-
-	float rotateSpeed = 1.5, rotateBase = 0;
+			
+	float rotateSpeed = 1.5, rotateBase = 0;					// Rotation variables
 	float rotValue;
 	float difSpeed;
 	int *currentScore = nullptr;
-	int dirX, dirY;
+	int dirX, dirY;												// Direction variables
 
 public:
 
-	bool colidedByBullet = false; // Checks if the enemy is hit by a bullet
-	EnemyType type;
+	bool colidedByBullet = false;								// Checks if the enemy is hit by a bullet
+	EnemyType type;												// Defines the type of enemy
 
-	Enemy(float difSpd, int* score) {
+	Enemy(float difSpd, int* score) {							// Constructor used to create an enemy
 		vel.x = 0;
 		vel.y = 0;
 		id = (SpriteID)(rand() % 8 + 2);
@@ -28,7 +28,7 @@ public:
 		currentScore = score;
 	} 
 
-	Enemy(float x, float y, EnemyType ty, float difSpd, float velX, float velY, int* score) {
+	Enemy(float x, float y, EnemyType ty, float difSpd, float velX, float velY, int* score) {	// Constructor used to create two enemies from a  larger enemy
 		pos.x = x;
 		pos.y = y;
 		type = ty;
@@ -49,12 +49,12 @@ public:
 		default:
 			break;
 		}
-		cir.r = RND.spriteClips[id].w / 2;
+		cir.r = RND.spriteClips[id].w / 2;						// Defines the value of the radius
 	};
 
 	void OnEntry() {
 
-		pos.x = RandomPos().x;
+		pos.x = RandomPos().x;									// Set random values to enemy position at start
 		pos.y = RandomPos().y;
 
 		dirX = RandomVelocityDir();
@@ -87,7 +87,7 @@ public:
 			break;
 		}
 
-		cir.r = RND.spriteClips[id].w / 2;
+		cir.r = RND.spriteClips[id].w / 2;						// Define the value of the radius
 	}
 
 
@@ -97,18 +97,16 @@ public:
 		rotValue = rotateEnemy();
 		move(*currentScore);	
 
-		cir.x = pos.x + (float)RND.spriteClips[id].w / 2.00;
-		cir.y = pos.y + (float)RND.spriteClips[id].h / 2.00;
+		cir.x = pos.x + (float)RND.spriteClips[id].w / 2.00;	// Gives value to the cir.x and the cir.y
+		cir.y = pos.y + (float)RND.spriteClips[id].h / 2.00;	// in the function of the position of the object
 
 	}
 
-	void Draw() {
+	void Draw() {												// Renders the enemy
 		RND.PrintText(pos.x, pos.y, spriteSheetText, &RND.spriteClips[id], rotValue);
-		//std::cout << "Dir X: " << vel.x << "		 Dir Y: " << vel.y << std::endl;
-
 	}
 	
-	Position RandomPos() {
+	Position RandomPos() {										// Generates a random position
 		Position tmp;
 		tmp.x = rand() % AUX.w;
 		tmp.y = rand() % AUX.h;
@@ -121,7 +119,7 @@ public:
 		return tmp;
 		}
 
-	float rotateEnemy() {
+	float rotateEnemy() {										// Used to rotate the enemy
 		if (rotateBase >= 360) {
 			rotateBase = 0;
 			return rotateBase;
@@ -129,16 +127,16 @@ public:
 		else return (rotateBase += rotateSpeed);
 	}
 
-	void move(int score) {		
+	void move(int score) {										// Used to move the enemy
 		pos.x += ((vel.x + ((float)score / float(q)*dirX)));
 		pos.y += ((vel.y + ((float)score / float(q)*dirY)));
 	}
 
-	velocity GetVelocity() {
+	velocity GetVelocity() {									// Used to return the velocity externally
 		return vel;
 	}
 
-	int RandomVelocityDir() {
+	int RandomVelocityDir() {									// Used to give a random direction
 		int tmp = rand() % 2;
 		if (tmp == 1) {
 			return 1;
@@ -146,7 +144,7 @@ public:
 		else return -1;
 	}
 
-	void RandomType() {
+	void RandomType() {											// Used to give a random type to the enemy
 		int randValue = rand() % 3;
 		switch (randValue)
 		{

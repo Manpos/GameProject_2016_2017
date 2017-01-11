@@ -5,27 +5,27 @@
 #include "GameScene.hh"
 #include "RankScene.hh"
 
-#define SM SceneManager::Instance()
+#define SM SceneManager::Instance()				// Singleton defdined, so we don't have to instatiate an SceneManager object everytime
 
-class SceneManager {
+class SceneManager {							// Class used to manage the different scenes in the game
 private:
-
-
 public:
+
+	// The following pointers are used to create scenes when needed and also erase them 
 	MenuScene *menu = nullptr;
 	SelectionScene *selection = nullptr;
 	GameScene *game = nullptr;
 	RankScene *rank = nullptr;
-	SceneType curr;
+	SceneType curr;								// It indicates the type of the current scene
 
-	difficulties currDif;
+	difficulties currDif;						// It indicates the current dificulty
 
-	static SceneManager& Instance() {
+	static SceneManager& Instance() {			// Declaration of the singleton
 		static SceneManager a;
 		return a;
 	}
 
-	void Start() {
+	void Start() {								// Declares initial values to some atributes
 		curr = MENU;
 		AUX.gameRunning = true;
 		menu = new MenuScene;
@@ -33,9 +33,11 @@ public:
 
 	void Update() {
 			AUX.current = curr;
+
+			// This switch checks the state of "curr" every itereation to display the correct scene
 			switch (curr)
 			{
-			case MENU:
+			case MENU:							//Updates and prints selection and deletes the prevoius MenuScene
 				if (game != nullptr) {
 					game->OnExit();
 					game = nullptr;
@@ -47,7 +49,7 @@ public:
 				menu->Update();
 				menu->Draw();				
 				break;
-			case SELECTION:
+			case SELECTION:						//Updates and prints selection and deletes the prevoius MenuScene
 				if (menu != nullptr) {
 					menu->OnExit();
 					menu = nullptr;
@@ -55,7 +57,7 @@ public:
 				selection->Update();
 				selection->Draw();
 				break;
-			case GAME:
+			case GAME:							//Updates and prints game and deletes the prevoius SelectionScene
 				if (selection != nullptr) {
 					selection->OnExit();
 					selection = nullptr;
@@ -63,7 +65,7 @@ public:
 				game->Update();
 				game->Draw();
 				break;
-			case RANK:
+			case RANK:							//Updates and prints rank and deletes the prevoius MenuScene or GameScene
 				if (game != nullptr) {
 					rank->LoadRank(currDif);
 					rank->current.name = rank->PlayerName();

@@ -1,21 +1,21 @@
 #include "Bullet.hh"
 
-Bullet::Bullet() {
+Bullet::Bullet() {												// Declaration of the constructor
 	alive = false;
 }
 
-void Bullet::Update() {
+void Bullet::Update() {											// Declaration of the update
 	if (alive) {
 		pos.x += vel.x;
 		pos.y += vel.y;
-		cir.x = pos.x + RND.spriteClips[BULLET].w / 2;
-		cir.y = pos.y + RND.spriteClips[BULLET].h / 2;
+		cir.x = pos.x + RND.spriteClips[BULLET].w / 2;			// cir.x and cir.y define the center
+		cir.y = pos.y + RND.spriteClips[BULLET].h / 2;			// of the circle used to detect collisions
 	}
 	CheckBulletBorders();
 }
 
 
-void Bullet::Shoot(float stX, float stY, float angle) {
+void Bullet::Shoot(float stX, float stY, float angle) {			// This method gives value to a bullet and makes it visible
 	pos.x = stX;
 	pos.y = stY;
 	vel.y = sin(AUX.degreesToRadians(angle)) * 7;
@@ -24,17 +24,17 @@ void Bullet::Shoot(float stX, float stY, float angle) {
 	cir.r = RND.spriteClips[BULLET].w / 2;
 }
 
-void Bullet::Draw() {
+void Bullet::Draw() {											// Draws the bullet sprite when alive == true
 	if (alive) {
 		RND.PrintText(pos.x, pos.y, spriteSheetText, &RND.spriteClips[BULLET]);
 	}
 }
 
-bool Bullet::isAlive() {
+bool Bullet::isAlive() {										// Return the value of alive if it's request externally
 	return alive;
 }
 
-void Bullet::CheckBulletBorders() {
+void Bullet::CheckBulletBorders() {								//Checks if the bullet arrives at the border of the window and makes alive == false
 		if (pos.x + RND.spriteClips[BULLET].w < 0) {
 			alive = false;
 		}

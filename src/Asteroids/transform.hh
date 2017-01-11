@@ -1,6 +1,8 @@
 #pragma once
 #define transform Transform::Instance()
-struct Position{
+
+// Position struct with coordinates x and y
+struct Position{ 
 	float x, y;
 };
 
@@ -8,12 +10,12 @@ enum WRPosition {DEFAULT, CENTERED, TOP_PADDING, BOTTOM};
 
 class Transform {
 public:
-	static Transform &Instance() {
+	static Transform &Instance() {												// Singleton declaration
 		static Transform t;
 		return t;
 	}
 	template <typename T>
-	void position(T &object, int x = 0, int y = 0, WRPosition pos = DEFAULT) {
+	void position(T &object, int x = 0, int y = 0, WRPosition pos = DEFAULT) {	// Function to replace a SDL_Rect to a certain position pased by parameter
 		T* ch = &object;
 		ch->x = x;
 		ch->y = y;

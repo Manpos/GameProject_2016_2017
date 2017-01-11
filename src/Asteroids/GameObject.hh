@@ -5,21 +5,22 @@
 
 class GameObject {
 protected:
+															// Loads the spritesheet as a texture
 	SDL_Texture *spriteSheetText = RND.SurfToText(RND.LoadImage("../../res/SpriteSheet.png"));
 
-	struct velocity {
+	struct velocity {										// struct to store the velocity of the object
 		float x , y;
 	};
 
-	struct Circle
+	struct Circle											// struct to store a circle used as a collider
 	{
 		float x, y, r;
 	};
 
-	SpriteID id;
+	SpriteID id;											// Object Id and velocity
 	velocity vel;
 
-	void CheckBorders(SpriteID sId) {
+	void CheckBorders(SpriteID sId) {						// Checks if the object is out of the window
 		if (pos.x + RND.spriteClips[sId].w < 0) {
 			pos.x = AUX.w;
 		}
@@ -40,12 +41,12 @@ protected:
 
 public:
 
-	struct position {
+	struct position {										// struct to store the position
 		float x, y;
 	};
 
-	position pos;
-	Circle cir;
+	position pos;											// Stores the position of the object
+	Circle cir;												// Creates a circle struct
 
 	GameObject(){}
 	void OnEntry();

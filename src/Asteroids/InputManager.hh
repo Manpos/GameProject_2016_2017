@@ -47,24 +47,24 @@ public:
 		while (SDL_PollEvent(&event)) {
 			switch (event.type) {
 			case SDL_QUIT: AUX.gameRunning = false; break;	//This event happens when the cross of the window is cilcked
-			case SDL_MOUSEBUTTONDOWN: 
+			case SDL_MOUSEBUTTONDOWN:						// It detects if the mouse button has been pressed
 				buttonPressed = true;   
 				if (AUX.gameRunning) {
 					shooting = true;
 				}
 				break;
-			case SDL_MOUSEBUTTONUP: 
+			case SDL_MOUSEBUTTONUP:							// It detects if the mouse button has been released
 				resetButton = true; 
 				if (AUX.gameRunning) {
 					shooting = false;
 				}
 				break;
-			case SDL_MOUSEMOTION: 
+			case SDL_MOUSEMOTION:							// It detects the motion of the mouse inside the window
 				g_mouseCoords.x = event.motion.x; 
 				g_mouseCoords.y = event.motion.y;
 				mouseBlocked = false;
 				break;
-			case SDL_KEYDOWN:
+			case SDL_KEYDOWN:								// It detects if a key has been pressed
 				if (event.key.keysym.sym == SDLK_ESCAPE && AUX.inGame) {
 					AUX.paused = !AUX.paused;
 				}
@@ -85,7 +85,7 @@ public:
 				}
 
 				break;
-			case SDL_KEYUP: 
+			case SDL_KEYUP:									// It detects if the key has been released
 				if (event.key.keysym.sym == SDLK_w) {
 					noMove = true;
 					moveUp = false;
@@ -107,6 +107,7 @@ public:
 		return shooting;
 	}
 
+	// It creates a pushonable button for a SDL_Rect
 	bool ButtonPress(SDL_Rect rect) {
 		if (IM.GetMouseCoords().x > rect.x && IM.GetMouseCoords().x < (rect.x + rect.w) &&
 			IM.GetMouseCoords().y > rect.y && IM.GetMouseCoords().y < (rect.y + rect.h) &&
@@ -115,7 +116,7 @@ public:
 		}
 		else return false;
 	}
-	void ResetButton() {
+	void ResetButton() {									// Resets the state of the buttons or keys
 		if (IM.buttonPressed && IM.resetButton) {
 			IM.resetButton = false;
 			IM.buttonPressed = false;
@@ -126,7 +127,7 @@ public:
 		return test;
 	}
 
-	bool ReturnMouseBlock() {
+	bool ReturnMouseBlock() {								// Return if the mouse is blocked when using leys
 		return mouseBlocked;
 	}
 };

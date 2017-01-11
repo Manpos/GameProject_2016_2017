@@ -9,15 +9,15 @@
 class Bullet : public GameObject {
 
 public:
-	Bullet();
+	Bullet();													// Constructor of the bullet and methods
 	void Update();
 	void Shoot(float startX, float startY, float angle);
 	void Draw();
-	bool isAlive();
+	bool isAlive();									
 	void CheckBulletBorders();
 
 	template <typename T>
-	void CheckColision(std::vector<T> &enemies) {
+	void CheckColision(std::vector<T> &enemies) {				// It checks if there's collision between the bullet and the enemies
 		float totalRadius, totalRadiusSquared, distancePoints;
 		bool colision = false;
 		for (auto i = enemies.begin(); i != enemies.end(); ++i) {
@@ -33,6 +33,6 @@ public:
 
 private:
 
-	bool alive;
+	bool alive;													// Bool used to know if the bullet must be desplayed
 
 };

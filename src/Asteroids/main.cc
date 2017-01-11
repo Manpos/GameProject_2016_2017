@@ -1,5 +1,6 @@
 #include "GameState.hh"
-
+
+
 int main(int, char*[]) {
 	srand(time(NULL)); // Allows the rand() to work correctly
 
