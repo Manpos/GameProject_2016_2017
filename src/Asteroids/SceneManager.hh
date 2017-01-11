@@ -10,7 +10,7 @@
 class SceneManager {							// Class used to manage the different scenes in the game
 private:
 public:
-
+  
 	// The following pointers are used to create scenes when needed and also erase them 
 	MenuScene *menu = nullptr;
 	SelectionScene *selection = nullptr;
@@ -91,3 +91,4 @@ public:
 				
 	}
 };
+

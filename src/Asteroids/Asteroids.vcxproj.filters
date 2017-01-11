@@ -17,6 +17,7 @@
     <ClCompile Include="Bullet.cc">
       <Filter>Model</Filter>
     </ClCompile>
+
   </ItemGroup>
   <ItemGroup>
     <Filter Include="Model">
@@ -90,6 +91,12 @@
       <Filter>Model</Filter>
     </ClInclude>
     <ClInclude Include="Bullet.hh">
+      <Filter>Model</Filter>
+    </ClInclude>
+    <ClInclude Include="Scene.hh">
+      <Filter>Model</Filter>
+    </ClInclude>
+    <ClInclude Include="GameScene.hh">
       <Filter>Model</Filter>
     </ClInclude>
   </ItemGroup>
