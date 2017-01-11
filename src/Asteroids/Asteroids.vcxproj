@@ -114,17 +114,34 @@
     </Link>
   </ItemDefinitionGroup>
   <ItemGroup>
+    <ClCompile Include="Bullet.cc" />
     <ClCompile Include="GameScene.cc" />
+    <ClCompile Include="RankScene.cc" />
+    <ClCompile Include="SelectionScene.cc" />
     <ClCompile Include="main.cc" />
+    <ClCompile Include="MenuScene.cc" />
   </ItemGroup>
   <ItemGroup>
     <Xml Include="difCnfg.xml" />
   </ItemGroup>
   <ItemGroup>
+    <ClInclude Include="AuxLib.hh" />
+    <ClInclude Include="Bullet.hh" />
+    <ClInclude Include="EnemyClass.hh" />
+    <ClInclude Include="GameObject.hh" />
     <ClInclude Include="GameScene.hh" />
+    <ClInclude Include="GameState.hh" />
+    <ClInclude Include="PlayerClass.hh" />
+    <ClInclude Include="RankScene.hh" />
+    <ClInclude Include="SelectionScene.hh" />
+    <ClInclude Include="InputManager.hh" />
+    <ClInclude Include="MenuScene.hh" />
     <ClInclude Include="Renderer.hh" />
     <ClInclude Include="Scene.hh" />
     <ClInclude Include="SceneManager.hh" />
+    <ClInclude Include="TimeManager.hh" />
+    <ClInclude Include="transform.hh" />
+    <ClInclude Include="Window.hh" />
   </ItemGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />
   <ImportGroup Label="ExtensionTargets">

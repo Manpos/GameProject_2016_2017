@@ -2,9 +2,22 @@
 <Project ToolsVersion="4.0" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
   <ItemGroup>
     <ClCompile Include="main.cc" />
+    <ClCompile Include="MenuScene.cc">
+      <Filter>Model</Filter>
+    </ClCompile>
+    <ClCompile Include="SelectionScene.cc">
+      <Filter>Model</Filter>
+    </ClCompile>
     <ClCompile Include="GameScene.cc">
       <Filter>Model</Filter>
     </ClCompile>
+    <ClCompile Include="RankScene.cc">
+      <Filter>Model</Filter>
+    </ClCompile>
+    <ClCompile Include="Bullet.cc">
+      <Filter>Model</Filter>
+    </ClCompile>
+
   </ItemGroup>
   <ItemGroup>
     <Filter Include="Model">
@@ -19,6 +32,9 @@
     <Filter Include="Save&amp;ConfigFiles">
       <UniqueIdentifier>{523bb4e2-9e6b-4bf5-8215-d2c8600dbb14}</UniqueIdentifier>
     </Filter>
+    <Filter Include="Aux">
+      <UniqueIdentifier>{fac8b143-cfbe-4c86-b575-093c915ff344}</UniqueIdentifier>
+    </Filter>
   </ItemGroup>
   <ItemGroup>
     <Xml Include="difCnfg.xml">
@@ -31,6 +47,51 @@
     </ClInclude>
     <ClInclude Include="Renderer.hh">
       <Filter>View</Filter>
+    </ClInclude>
+    <ClInclude Include="MenuScene.hh">
+      <Filter>Model</Filter>
+    </ClInclude>
+    <ClInclude Include="InputManager.hh">
+      <Filter>Controller</Filter>
+    </ClInclude>
+    <ClInclude Include="Scene.hh">
+      <Filter>Model</Filter>
+    </ClInclude>
+    <ClInclude Include="Window.hh">
+      <Filter>View</Filter>
+    </ClInclude>
+    <ClInclude Include="SelectionScene.hh">
+      <Filter>Model</Filter>
+    </ClInclude>
+    <ClInclude Include="GameScene.hh">
+      <Filter>Model</Filter>
+    </ClInclude>
+    <ClInclude Include="AuxLib.hh">
+      <Filter>Aux</Filter>
+    </ClInclude>
+    <ClInclude Include="PlayerClass.hh">
+      <Filter>Model</Filter>
+    </ClInclude>
+    <ClInclude Include="EnemyClass.hh">
+      <Filter>Model</Filter>
+    </ClInclude>
+    <ClInclude Include="TimeManager.hh">
+      <Filter>Controller</Filter>
+    </ClInclude>
+    <ClInclude Include="GameObject.hh">
+      <Filter>Model</Filter>
+    </ClInclude>
+    <ClInclude Include="transform.hh">
+      <Filter>Aux</Filter>
+    </ClInclude>
+    <ClInclude Include="GameState.hh">
+      <Filter>Controller</Filter>
+    </ClInclude>
+    <ClInclude Include="RankScene.hh">
+      <Filter>Model</Filter>
+    </ClInclude>
+    <ClInclude Include="Bullet.hh">
+      <Filter>Model</Filter>
     </ClInclude>
     <ClInclude Include="Scene.hh">
       <Filter>Model</Filter>
