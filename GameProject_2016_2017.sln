@@ -19,6 +19,7 @@ Global
 		{7D2C05CC-9B1B-47C1-ABCA-F372AE5FAD5B}.Debug|x86.Build.0 = Debug|Win32
 		{7D2C05CC-9B1B-47C1-ABCA-F372AE5FAD5B}.Release|x64.ActiveCfg = Release|x64
 		{7D2C05CC-9B1B-47C1-ABCA-F372AE5FAD5B}.Release|x64.Build.0 = Release|x64
+		{7D2C05CC-9B1B-47C1-ABCA-F372AE5FAD5B}.Release|x64.Deploy.0 = Release|x64
 		{7D2C05CC-9B1B-47C1-ABCA-F372AE5FAD5B}.Release|x86.ActiveCfg = Release|Win32
 		{7D2C05CC-9B1B-47C1-ABCA-F372AE5FAD5B}.Release|x86.Build.0 = Release|Win32
 	EndGlobalSection

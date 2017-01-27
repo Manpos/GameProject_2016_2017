@@ -153,7 +153,7 @@ public:
 
 	// Replaces the player to the center when dead and removes 1 life
 	void Respawn(float iTime) {
-		if (life > 0 && respawnTime < 0) {
+		if (life > 0 ) {
 			--life;
 			this->pos.x = AUX.w / 2;
 			this->pos.y = AUX.h / 2;
@@ -161,14 +161,6 @@ public:
 			this->vel.y = 0;
 			invTime = iTime;
 			dead = false;
-		}
-
-		if (respawnTime <= 0) {
-			respawnTime = 2;
-		}
-		
-		if (respawnTime > 0) {
-			respawnTime -= TM.GetDeltaTime();
 		}
 	}
 
